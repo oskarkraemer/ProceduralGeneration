@@ -17,8 +17,10 @@ public:
 	// Insertion operator
 	friend std::ostream& operator<<(std::ostream& os, const Chunk& s)
 	{
-
-		os << s.tileTypes <<'\n';
+		for (int i = 0; i < 256; i++) {
+			os << s.tileTypes[i];
+		}
+		
 		os << s.x << '\n';
 		os << s.y;
 		return os;
@@ -27,9 +29,12 @@ public:
 	// Extraction operator
 	friend std::istream& operator>>(std::istream& is, Chunk& s)
 	{
-		is >> s.tileTypes;
-		is >> s.x;
-		is >> s.y;
+		for (int i = 0; i < 256; i++) {
+			is >> s.tileTypes[i];
+		}
+
+
+		is >> s.x >> s.y;
 
 		return is;
 	}

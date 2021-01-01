@@ -16,11 +16,11 @@
 
 int main() {
     //TO:DO
-    //- fix inBufferCheck; right and up movement chucnkloading is lagging behind
+    //- fix inBufferCheck; old chunks must be unloaded
 
     World* world = new World;
     Player player;
-    player.setPosition(sf::Vector2f(300,300));
+    player.setPosition(sf::Vector2f(-300,-300));
 
     FPS fps;
     TerrainGeneration tr;
@@ -40,7 +40,7 @@ int main() {
 
     player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
     
-    chunkLoader.loadChunksToBuffer(&player, false);
+    //chunkLoader.loadChunksToBuffer(&player, false);
 
 
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer);
@@ -67,19 +67,19 @@ int main() {
 
         //MOVEMINT
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            std::cout << "Pressed W" << player.position.y << " "<<player.chunkPosition.y<< std::endl;
+            //std::cout << "Pressed W" << player.position.y << " "<<player.chunkPosition.y<< std::endl;
             player.setPosition(sf::Vector2f(player.position.x, player.position.y - tempSpeed));
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            std::cout << "Pressed D" << player.position.x << " " << player.chunkPosition.x << std::endl;
+            //std::cout << "Pressed D" << player.position.x << " " << player.chunkPosition.x << std::endl;
             player.setPosition(sf::Vector2f(player.position.x+ tempSpeed, player.position.y));
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            std::cout << "Pressed A" << player.position.x << " " << player.chunkPosition.x << std::endl;
+            //std::cout << "Pressed A" << player.position.x << " " << player.chunkPosition.x << std::endl;
             player.setPosition(sf::Vector2f(player.position.x - tempSpeed, player.position.y));
         }
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            std::cout << "Pressed S" << player.position.y << " " << player.chunkPosition.y << std::endl;
+            //std::cout << "Pressed S" << player.position.y << " " << player.chunkPosition.y << std::endl;
             player.setPosition(sf::Vector2f(player.position.x, player.position.y + tempSpeed));
         }
 
@@ -88,7 +88,9 @@ int main() {
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
             
-            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, false);
+            chunkLoader.loadChunksToBuffer(&player, true);
+
+            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
             t1.join();
 
             player.oldChunkPosition.x = player.chunkPosition.x;

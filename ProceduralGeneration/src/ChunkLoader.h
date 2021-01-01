@@ -18,7 +18,7 @@ private:
 
 public:
 	//Load Chunks near the Player
-	void loadChunksToBuffer(Player* player);
+	void loadChunksToBuffer(Player* player, bool existsInBufferCheck);
 
 	//Saves Chunk to .chunk File
 	void saveChunkToFile(Chunk* chunk);

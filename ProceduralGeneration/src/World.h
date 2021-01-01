@@ -12,8 +12,8 @@ public:
 	int width = 50;
 	int height = 50;
 
-
 	std::vector<Chunk> chunkBuffer;
+	
 
 };
 

@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
+#include <thread>
 
 #include "TerrainGeneration.h"
 #include "world.h"
@@ -15,7 +16,7 @@
 
 int main() {
     //TO:DO
-    //- fix lag at chunk transitions (maybe reduce file loads by only using one file for chunks)
+    //- fix inBufferCheck; right and up movement chucnkloading is lagging behind
 
     World* world = new World;
     Player player;
@@ -23,27 +24,23 @@ int main() {
 
     FPS fps;
     TerrainGeneration tr;
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
-    //sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
+    //sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
     //sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
 
     Renderer renderer(&window);
     ChunkLoader chunkLoader(world, &renderer, &tr);
 
-    Chunk chunk;
-    chunk.x = 55;
-    chunk.y = 32;
-    tr.generateChunk(&chunk, 4);
 
-    chunkLoader.saveChunkToFile(&chunk);
+    world->chunkBuffer.resize(chunkBufferSize);
 
-    chunkLoader.loadChunkFromFile(55, 32);
-
-    world->chunkBuffer.reserve(chunkBufferSize);
-
+    for (int i = 0; i < chunkBufferSize; i++) {
+        world->chunkBuffer[i] = Chunk();
+    }
 
     player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
     
+    chunkLoader.loadChunksToBuffer(&player, false);
 
 
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer);
@@ -91,7 +88,8 @@ int main() {
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
             
-            chunkLoader.loadChunksToBuffer(&player);
+            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, false);
+            t1.join();
 
             player.oldChunkPosition.x = player.chunkPosition.x;
             player.oldChunkPosition.y = player.chunkPosition.y;

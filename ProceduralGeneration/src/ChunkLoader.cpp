@@ -16,15 +16,14 @@ void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
             file.open(ss.str());
 
 
-
             if (file) {
-                    
+
                 world->chunkBuffer[cntr] = loadChunkFromFile(x, y);
                 renderer->loadChunkVertices(&world->chunkBuffer[cntr]);
             }
             else {
 
-                world->chunkBuffer[cntr].x = x; world->chunkBuffer[cntr].y = y;
+                world->chunkBuffer[cntr].x = x;  world->chunkBuffer[cntr].y = y;
                 terrainGenerator->generateChunk(&world->chunkBuffer[cntr], 0);
                 renderer->loadChunkVertices(&world->chunkBuffer[cntr]);
 
@@ -33,7 +32,6 @@ void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
 
 
             std::cout << "|| X: " << x << " Y: " << y << std::endl;
-
             cntr++;
         }
     }
@@ -68,7 +66,7 @@ Chunk ChunkLoader::loadChunkFromFile(int x, int y) {
     }
     else {
 
-        chunk.vertices = sf::VertexArray();
+        //chunk.vertices = sf::VertexArray();
         file >> chunk;
     }
 

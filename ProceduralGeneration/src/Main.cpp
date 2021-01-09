@@ -16,11 +16,11 @@
 
 int main() {
     //TO:DO
-    //- fix inBufferCheck; old chunks must be unloaded
+    //- fix chunkLoading; first load chunks than unload them
 
     World* world = new World;
     Player player;
-    player.setPosition(sf::Vector2f(-300,-300));
+    player.setPosition(sf::Vector2f(0,0));
 
     FPS fps;
     TerrainGeneration tr;
@@ -34,13 +34,12 @@ int main() {
 
     world->chunkBuffer.resize(chunkBufferSize);
 
-    for (int i = 0; i < chunkBufferSize; i++) {
-        world->chunkBuffer[i] = Chunk();
-    }
 
     player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
     
-    //chunkLoader.loadChunksToBuffer(&player, false);
+    for (int i = 0; i < chunkBufferSize; i++) {
+        world->chunkBuffer[i] = Chunk();
+    }
 
 
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer);
@@ -83,15 +82,32 @@ int main() {
             player.setPosition(sf::Vector2f(player.position.x, player.position.y + tempSpeed));
         }
 
+
+        /*
+        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            sf::Vector2i pixelPos = sf::Mouse::getPosition();
+            sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
+            std::cout << worldPos.x/32 << " "<< worldPos.y/32 << std::endl;
+            for (int i = 0; i < chunkBufferSize; i++) {
+                for (int y = 0; y < chunk_size * chunk_size; y++) {
+                    if (world->chunkBuffer[i].x == floor(worldPos.x / 32) && world->chunkBuffer[i].y == floor(worldPos.x / 32)) {
+                        world->chunkBuffer[i].tileTypes[0] = 0;
+                        renderer.loadChunkVertices(&world->chunkBuffer[i]);
+                    }
+                }
+            }
+        }*/
+
         window.clear(sf::Color::Black);
+        window.setView(player.view);
 
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
-            
+           
             chunkLoader.loadChunksToBuffer(&player, true);
 
-            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
-            t1.join();
+            //std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
+            //t1.join();
 
             player.oldChunkPosition.x = player.chunkPosition.x;
             player.oldChunkPosition.y = player.chunkPosition.y;

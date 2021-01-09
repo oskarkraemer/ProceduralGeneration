@@ -18,16 +18,16 @@ sf::Color Renderer::getTileColor(Chunk* chunk, uint8_t tileIndex) {
 			return sf::Color(sf::Color::Transparent);
 		case 1:
 			//Green
-			return sf::Color(sf::Color::Green);
+			return sf::Color(sf::Color(54, 110, 71));
 		case 2:
 			//Red
-			return sf::Color(sf::Color::Red);
+			return sf::Color(sf::Color(110, 57, 54));
 		case 3:
 			//Blue
-			return sf::Color(sf::Color::Blue);
+			return sf::Color(sf::Color(54, 68, 110));
 		case 4:
 			//Yellow
-			return sf::Color(sf::Color::Yellow);
+			return sf::Color(sf::Color(139, 140, 52));
 	}
 }
 
@@ -45,6 +45,7 @@ void Renderer::loadChunkVertices(Chunk* chunk) {
 			sf::Vertex* quad = &chunk->vertices[(y * chunk_size + x) * 4];
 			sf::Color color = getTileColor(chunk, y * chunk_size + x);
 
+
 			quad[0].position = sf::Vector2f(x * tile_size + Xoff, y * tile_size + Yoff);
 			quad[1].position = sf::Vector2f((x + 1) * tile_size + Xoff, y * tile_size + Yoff);
 			quad[2].position = sf::Vector2f((x + 1) * tile_size + Xoff, (y + 1) * tile_size + Yoff);
@@ -54,6 +55,8 @@ void Renderer::loadChunkVertices(Chunk* chunk) {
 			quad[1].color = color;
 			quad[2].color = color;
 			quad[3].color = color;
+
+			
 		}
 	}
 }
@@ -68,14 +71,14 @@ void Renderer::renderPlayer(Player* player) {
 }
 
 void Renderer::renderChunkBorders() {
-	sf::RectangleShape rectangle(sf::Vector2f(256, 256));
+	sf::RectangleShape rectangle(sf::Vector2f(1024, 1024));
 	rectangle.setFillColor(sf::Color::Transparent);
 	rectangle.setOutlineColor(sf::Color::Red);
 	rectangle.setOutlineThickness(1);
 
 	for (int y = 0; y < 5; y++) {
 		for (int x = 0; x < 5; x++) {
-			rectangle.setPosition(x * 256, y * 256);
+			rectangle.setPosition(x * 1024, y * 1024);
 			window->draw(rectangle);
 		}
 	}

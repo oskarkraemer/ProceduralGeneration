@@ -71,13 +71,15 @@ void Renderer::renderPlayer(Player* player) {
 }
 
 void Renderer::renderChunkBorders(World* world) {
-	sf::RectangleShape rectangle(sf::Vector2f(1024, 1024));
+	int chunkPixelSize = chunk_size * tile_size;
+
+	sf::RectangleShape rectangle(sf::Vector2f(chunkPixelSize, chunkPixelSize));
 	rectangle.setFillColor(sf::Color::Transparent);
 	rectangle.setOutlineColor(sf::Color::Red);
 	rectangle.setOutlineThickness(1);
 
 	for (int i = 0; i < chunkBufferSize; i++) {
-		rectangle.setPosition(world->chunkBuffer[i].x * 1024, world->chunkBuffer[i].y * 1024);
+		rectangle.setPosition(world->chunkBuffer[i].x * chunkPixelSize, world->chunkBuffer[i].y * chunkPixelSize);
 		window->draw(rectangle);
 	}
 }

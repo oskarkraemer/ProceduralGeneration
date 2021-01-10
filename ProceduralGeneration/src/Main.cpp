@@ -25,8 +25,8 @@ int main() {
     FPS fps;
     TerrainGeneration tr;
     //sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
-    //sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
+    //sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
+    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
 
     Renderer renderer(&window);
     ChunkLoader chunkLoader(world, &renderer, &tr);
@@ -117,10 +117,10 @@ int main() {
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            
-            //chunkLoader.loadChunksToBuffer(&player, true);
+            chunkLoader.loadChunksToBuffer(&player, true);
 
-            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
-            t1.join();
+            //std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
+            //t1.join();
 
             player.oldChunkPosition.x = player.chunkPosition.x;
             player.oldChunkPosition.y = player.chunkPosition.y;

@@ -14,11 +14,11 @@ public:
 	sf::RenderWindow* window;
 
 	void renderChunkBuffer(World* world);
-	sf::Color getTileColor(Chunk* chunk, uint8_t tileIndex);
+	sf::Color getTileColor(Chunk* chunk, uint16_t tileIndex);
 	void loadChunkVertices(Chunk* chunk);
 
 	void renderPlayer(Player* player);
-	void renderChunkBorders();
+	void renderChunkBorders(World* world);
 	int renderFPS(FPS* fps);
 
 	Renderer(sf::RenderWindow* cWindow) { window = cWindow; }

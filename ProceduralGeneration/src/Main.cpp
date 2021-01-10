@@ -16,7 +16,7 @@
 
 int main() {
     //TO:DO
-    //- fix chunkLoading; first load chunks than unload them
+    //- fix reapting tile pattern every 256 tiles in chunk
 
     World* world = new World;
     Player player;
@@ -49,7 +49,7 @@ int main() {
     std::cout << "HeapMemory used: " << heapSize <<" | " << (float)heapSize /1024 << "KB"<< std::endl;
     
     sf::Clock clock;
-    int movSpeed = 1500;
+    int movSpeed = 800;
 
     while (window.isOpen())
     {
@@ -104,10 +104,10 @@ int main() {
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            
-            chunkLoader.loadChunksToBuffer(&player, true);
+            //chunkLoader.loadChunksToBuffer(&player, true);
 
-            //std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
-            //t1.join();
+            std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
+            t1.join();
 
             player.oldChunkPosition.x = player.chunkPosition.x;
             player.oldChunkPosition.y = player.chunkPosition.y;
@@ -116,7 +116,7 @@ int main() {
         renderer.renderChunkBuffer(world);
         
 
-        renderer.renderChunkBorders();
+        renderer.renderChunkBorders(world);
         renderer.renderPlayer(&player);
         renderer.renderFPS(&fps);
         

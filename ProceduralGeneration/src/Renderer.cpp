@@ -10,7 +10,7 @@ void Renderer::renderChunkBuffer(World* world) {
 
 }
 
-sf::Color Renderer::getTileColor(Chunk* chunk, uint8_t tileIndex) {
+sf::Color Renderer::getTileColor(Chunk* chunk, uint16_t tileIndex) {
 
 	switch ((int)chunk->tileTypes[tileIndex]) {
 		case 0:
@@ -70,17 +70,15 @@ void Renderer::renderPlayer(Player* player) {
 	window->draw(circle);
 }
 
-void Renderer::renderChunkBorders() {
+void Renderer::renderChunkBorders(World* world) {
 	sf::RectangleShape rectangle(sf::Vector2f(1024, 1024));
 	rectangle.setFillColor(sf::Color::Transparent);
 	rectangle.setOutlineColor(sf::Color::Red);
 	rectangle.setOutlineThickness(1);
 
-	for (int y = 0; y < 5; y++) {
-		for (int x = 0; x < 5; x++) {
-			rectangle.setPosition(x * 1024, y * 1024);
-			window->draw(rectangle);
-		}
+	for (int i = 0; i < chunkBufferSize; i++) {
+		rectangle.setPosition(world->chunkBuffer[i].x * 1024, world->chunkBuffer[i].y * 1024);
+		window->draw(rectangle);
 	}
 }
 

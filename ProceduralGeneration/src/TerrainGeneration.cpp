@@ -19,7 +19,6 @@ float TerrainGeneration::getTile(int x, int y)
 void TerrainGeneration::generateChunk(Chunk* chunk, int seed) {
 	srand(seed);
 
-	std::cout << "X" << chunk->x << std::endl;
 
 	for (int y = 0; y < chunk_size; y++) {
 		for (int x = 0; x < chunk_size; x++) {

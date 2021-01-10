@@ -36,6 +36,8 @@ int main() {
 
 
     player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
+
+    bool toggleDebugInformation = false;
     
     for (int i = 0; i < chunkBufferSize; i++) {
         world->chunkBuffer[i] = Chunk();
@@ -57,8 +59,17 @@ int main() {
         sf::Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
-                window.close();
+            switch (event.type) {
+                case sf::Event::Closed:
+                    window.close();
+                
+                //toggle debugInformation
+                case sf::Event::KeyReleased:
+                    if (event.key.code == sf::Keyboard::F3) {
+                        toggleDebugInformation = !toggleDebugInformation;
+                    }
+            }
+            
         }
         
         sf::Time elapsedTime = clock.restart();
@@ -82,6 +93,8 @@ int main() {
             player.setPosition(sf::Vector2f(player.position.x, player.position.y + tempSpeed));
         }
 
+
+        
 
         /*
         if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
@@ -118,7 +131,12 @@ int main() {
 
         renderer.renderChunkBorders(world);
         renderer.renderPlayer(&player);
-        renderer.renderFPS(&fps);
+
+        //Render GUI
+        window.setView(window.getDefaultView());
+        if (toggleDebugInformation) {
+            renderer.renderDebugInformation(&player, &fps);
+        }
         
         fps.update();
         

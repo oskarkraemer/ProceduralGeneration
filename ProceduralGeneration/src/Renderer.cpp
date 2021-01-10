@@ -82,7 +82,7 @@ void Renderer::renderChunkBorders(World* world) {
 	}
 }
 
-int Renderer::renderFPS(FPS* fps) {
+int Renderer::renderDebugInformation(Player* player ,FPS* fps) {
 	sf::Font font;
 	sf::Text text;
 
@@ -91,9 +91,13 @@ int Renderer::renderFPS(FPS* fps) {
 	}
 
 	text.setFont(font);
-	text.setString(std::to_string(fps->getFPS()));
+	text.setString("FPS: " + std::to_string(fps->getFPS()) + "\n"
+				+ "X: " + std::to_string(player->position.x) + " Y: " + std::to_string(player->position.y) + "\n"
+				+ "Cx: " + std::to_string(player->chunkPosition.x) + " Cy: " + std::to_string(player->chunkPosition.y) + "\n"
+				+ "ChunkBuffer size: " + std::to_string(chunkBufferSize));
+
 	text.setCharacterSize(20);
-	text.setFillColor(sf::Color::Blue);
+	text.setFillColor(sf::Color::Black);
 
 	window->draw(text);
 

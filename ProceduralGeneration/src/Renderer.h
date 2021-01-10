@@ -19,7 +19,7 @@ public:
 
 	void renderPlayer(Player* player);
 	void renderChunkBorders(World* world);
-	int renderFPS(FPS* fps);
+	int renderDebugInformation(Player* player, FPS* fps);
 
 	Renderer(sf::RenderWindow* cWindow) { window = cWindow; }
 };

@@ -17,11 +17,11 @@ sf::Color Renderer::getTileColor(Chunk* chunk, uint16_t tileIndex) {
 			//Air
 			return sf::Color(sf::Color::Transparent);
 		case 1:
-			//Green
+			//Grass
 			return sf::Color(sf::Color(54, 110, 71));
 		case 2:
-			//Red
-			return sf::Color(sf::Color(110, 57, 54));
+			//Stone
+			return sf::Color(sf::Color(51, 51, 51));
 		case 3:
 			//Blue
 			return sf::Color(sf::Color(54, 68, 110));

@@ -153,6 +153,7 @@
   <ItemGroup>
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\ChunkLoader.cpp" />
+    <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Chunk.cpp" />
     <ClCompile Include="src\FPS.cpp" />
@@ -165,6 +166,7 @@
   <ItemGroup>
     <ClInclude Include="src\ChunkLoader.h" />
     <ClInclude Include="src\Globals.h" />
+    <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Chunk.h" />
     <ClInclude Include="src\FPS.h" />

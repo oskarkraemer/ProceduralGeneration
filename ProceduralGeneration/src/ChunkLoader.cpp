@@ -3,7 +3,7 @@
 void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
     int cntr = 0;
 
-    std::cout << std::endl << "[NEW CHUNK UPDATE]" << std::endl;
+    std::cout << std::endl << "[NEW CHUNK UPDATE]" << "\n";
 
 
     for (int x = player->chunkPosition.x - load_radius; x <= player->chunkPosition.x + load_radius; x++) {
@@ -31,7 +31,7 @@ void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
             }
 
 
-            std::cout << "|| X: " << x << " Y: " << y << std::endl;
+            //std::cout << "|| X: " << x << " Y: " << y << "\n";
             cntr++;
         }
     }
@@ -55,14 +55,14 @@ Chunk ChunkLoader::loadChunkFromFile(int x, int y) {
     std::stringstream ss;
     Chunk chunk;
 
-    std::cout << "Load File: " << x << " " << y << std::endl;
+    //std::cout << "Load File: " << x << " " << y << "\n";
 
     ss << "./world/" << x << "_" << y << ".chunk";
 
     file.open(ss.str());
 
     if (!file.good()) {
-        std::cout << "File opening failed!" << std::endl;
+        std::cout << "File opening failed!" << "\n";
     }
     else {
 

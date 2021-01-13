@@ -10,13 +10,15 @@
 #include "Globals.h"
 #include "Player.h"
 #include "ChunkLoader.h"
+#include "Mouse.h"
 
 #include "FPS.h"
 
 
 int main() {
     //TO:DO
-    //- fix reapting tile pattern every 256 tiles in chunk
+    //- fix perlin noise between chunks, it cuts off at the chunk borders
+    //- fix mouse offsetting when window dragged
 
     World* world = new World;
     Player player;
@@ -25,12 +27,13 @@ int main() {
     FPS fps;
     TerrainGeneration tr;
     //sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
-    //sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
-    sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
+    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
+    //sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
 
     Renderer renderer(&window);
     ChunkLoader chunkLoader(world, &renderer, &tr);
 
+    Mouse mouse;
 
     world->chunkBuffer.resize(chunkBufferSize);
 
@@ -43,12 +46,21 @@ int main() {
         world->chunkBuffer[i] = Chunk();
     }
 
+  
+
+    //
+    // Display used Memory
+    //
 
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer);
     uint16_t heapSize = chunkBufferSize * sizeof(Chunk);
 
     std::cout << "StackMemory used: " << stackSize << " | " << (float)stackSize / 1024 << "KB" << std::endl;
     std::cout << "HeapMemory used: " << heapSize <<" | " << (float)heapSize /1024 << "KB"<< std::endl;
+
+    //
+    // [-----------------]
+    //
     
     sf::Clock clock;
     int movSpeed = 800;
@@ -94,26 +106,10 @@ int main() {
         }
 
 
-        
-
-        /*
-        if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-            sf::Vector2i pixelPos = sf::Mouse::getPosition();
-            sf::Vector2f worldPos = window.mapPixelToCoords(pixelPos);
-            std::cout << worldPos.x/32 << " "<< worldPos.y/32 << std::endl;
-            for (int i = 0; i < chunkBufferSize; i++) {
-                for (int y = 0; y < chunk_size * chunk_size; y++) {
-                    if (world->chunkBuffer[i].x == floor(worldPos.x / 32) && world->chunkBuffer[i].y == floor(worldPos.x / 32)) {
-                        world->chunkBuffer[i].tileTypes[0] = 0;
-                        renderer.loadChunkVertices(&world->chunkBuffer[i]);
-                    }
-                }
-            }
-        }*/
-
         window.clear(sf::Color::Black);
         window.setView(player.view);
 
+        mouse.updateBlockBreak(world, &renderer, &chunkLoader);
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            
@@ -128,9 +124,12 @@ int main() {
 
         renderer.renderChunkBuffer(world);
         
-
-        renderer.renderChunkBorders(world);
+        if (toggleDebugInformation) {
+            renderer.renderChunkBorders(world);
+        }
         renderer.renderPlayer(&player);
+
+        mouse.updateHighlighting(&window);
 
         //Render GUI
         window.setView(window.getDefaultView());

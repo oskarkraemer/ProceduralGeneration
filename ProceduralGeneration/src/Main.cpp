@@ -46,7 +46,11 @@ int main() {
         world->chunkBuffer[i] = Chunk();
     }
 
-  
+    
+    std::cout << player.addToInventory(1, 90) << "\n";
+    std::cout << player.addToInventory(2, 400) << "\n";
+
+    std::cout << player.removeFromInventoryAtIndex(1, 400);
 
     //
     // Display used Memory

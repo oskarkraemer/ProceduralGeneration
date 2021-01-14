@@ -32,6 +32,7 @@ void Mouse::updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chun
                 for (int y = 0; y < chunk_size; y++) {
                     for (int x = 0; x < chunk_size; x++) {
                         if (y + chunkPos.y * chunk_size == tilePos.y && x + chunkPos.x * chunk_size == tilePos.x) {
+
                             world->chunkBuffer[i].tileTypes[y * chunk_size + x] = 0;
 
                             renderer->loadChunkVertices(&world->chunkBuffer[i]);

@@ -19,7 +19,6 @@ int main() {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- fix mouse offsetting when window dragged
-    //-fix player loading, maybe use stream insted of getline beacuse it reads the wrong size thus cutts of multidigit numbers
 
     World* world = new World;
     Player player("PizzaHannes");
@@ -43,7 +42,7 @@ int main() {
     Renderer renderer(&window);
     ChunkLoader chunkLoader(world, &renderer, &tr);
 
-    Mouse mouse;
+    Mouse mouse(world, &renderer, &chunkLoader, &player);
 
     world->chunkBuffer.resize(chunkBufferSize);
 
@@ -119,7 +118,7 @@ int main() {
         window.clear(sf::Color::Black);
         window.setView(player.view);
 
-        mouse.updateBlockBreak(world, &renderer, &chunkLoader, &player);
+        mouse.updateBlockBreak();
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            

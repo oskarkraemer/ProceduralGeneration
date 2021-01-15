@@ -22,7 +22,8 @@ void Mouse::updateHighlighting(sf::RenderWindow* window) {
     
 }
 
-void Mouse::updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chunkLoader) {
+void Mouse::updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chunkLoader, Player* player) {
+
     if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
         chunkPos.x = floor(tilePos.x / (float)chunk_size);
         chunkPos.y = floor(tilePos.y / (float)chunk_size);
@@ -33,11 +34,14 @@ void Mouse::updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chun
                     for (int x = 0; x < chunk_size; x++) {
                         if (y + chunkPos.y * chunk_size == tilePos.y && x + chunkPos.x * chunk_size == tilePos.x) {
 
-                            world->chunkBuffer[i].tileTypes[y * chunk_size + x] = 0;
+                            if (world->chunkBuffer[i].tileTypes[y * chunk_size + x] != 0) {
+                                player->addToInventory(world->chunkBuffer[i].tileTypes[y * chunk_size + x], 1);
+                                world->chunkBuffer[i].tileTypes[y * chunk_size + x] = 0;
 
-                            renderer->loadChunkVertices(&world->chunkBuffer[i]);
+                                renderer->loadChunkVertices(&world->chunkBuffer[i]);
 
-                            chunkLoader->saveChunkToFile(&world->chunkBuffer[i]);
+                                chunkLoader->saveChunkToFile(&world->chunkBuffer[i]);
+                            }
                         }
                     }
                 }

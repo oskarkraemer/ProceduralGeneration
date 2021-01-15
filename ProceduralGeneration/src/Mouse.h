@@ -4,6 +4,7 @@
 #include "World.h"
 #include "Renderer.h"
 #include "ChunkLoader.h"
+#include "Player.h"
 
 class Mouse
 {
@@ -17,7 +18,8 @@ private:
 
 public:
 	void updateHighlighting(sf::RenderWindow* window);
-	void updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chunkLoader);
+
+	void updateBlockBreak(World* world, Renderer* renderer, ChunkLoader* chunkLoader, Player* player);
 
 };
 

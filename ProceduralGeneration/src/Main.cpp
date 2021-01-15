@@ -19,16 +19,26 @@ int main() {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- fix mouse offsetting when window dragged
+    //-fix player loading, maybe use stream insted of getline beacuse it reads the wrong size thus cutts of multidigit numbers
 
     World* world = new World;
-    Player player;
-    player.setPosition(sf::Vector2f(0,0));
+    Player player("PizzaHannes");
+    player.loadPlayer();
+    std::cout << player.position.x << " " << player.position.y;
+    
+    player.setPosition(player.position);
+
+    CreateDirectory(L".\\world\\", NULL);
+    CreateDirectory(L".\\world\\players\\", NULL);
+    CreateDirectory(L".\\world\\chunks\\", NULL);
 
     FPS fps;
     TerrainGeneration tr;
     //sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
     sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
     //sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
+
+    window.setFramerateLimit(144);
 
     Renderer renderer(&window);
     ChunkLoader chunkLoader(world, &renderer, &tr);
@@ -46,17 +56,12 @@ int main() {
         world->chunkBuffer[i] = Chunk();
     }
 
-    
-    std::cout << player.addToInventory(1, 90) << "\n";
-    std::cout << player.addToInventory(2, 400) << "\n";
-
-    std::cout << player.removeFromInventoryAtIndex(1, 400);
 
     //
     // Display used Memory
     //
 
-    uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer);
+    uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer)+ sizeof(player) + sizeof(chunkLoader) + sizeof(mouse) + sizeof(window);
     uint16_t heapSize = chunkBufferSize * sizeof(Chunk);
 
     std::cout << "StackMemory used: " << stackSize << " | " << (float)stackSize / 1024 << "KB" << std::endl;
@@ -77,6 +82,7 @@ int main() {
         {
             switch (event.type) {
                 case sf::Event::Closed:
+                    player.savePlayer();
                     window.close();
                 
                 //toggle debugInformation
@@ -113,7 +119,7 @@ int main() {
         window.clear(sf::Color::Black);
         window.setView(player.view);
 
-        mouse.updateBlockBreak(world, &renderer, &chunkLoader);
+        mouse.updateBlockBreak(world, &renderer, &chunkLoader, &player);
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            

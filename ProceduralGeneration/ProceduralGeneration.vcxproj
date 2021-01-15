@@ -167,6 +167,7 @@
     <ClInclude Include="src\ChunkLoader.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\Mouse.h" />
+    <ClInclude Include="src\picosha2.h" />
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Chunk.h" />
     <ClInclude Include="src\FPS.h" />

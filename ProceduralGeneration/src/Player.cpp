@@ -76,3 +76,56 @@ bool Player::isInventoryFull() {
 
 	return !emptySlot;
 }
+
+void Player::savePlayer() {
+
+	std::ofstream file;
+	std::stringstream ss;
+
+	ss << "./world/players/" << uuid << ".player";
+
+	file.open(ss.str());
+
+	file << position.x << '\n';
+	file << position.y << '\n';
+
+	for (int i = 0; i < 32; i++) {
+		for (int y = 0; y < 2; y++) {
+			file << inventory[i][y] << "\n";
+		}
+	}
+
+	file.close();
+
+	
+}
+
+void Player::loadPlayer() {
+	std::ifstream file;
+	std::stringstream ss;
+
+	std::string line;
+
+	ss << "./world/players/" << uuid << ".player";
+
+	file.open(ss.str());
+
+	if (!file.good()) {
+		std::cout << "File opening failed!" << "\n";
+	}
+	else {
+		file >> position.x;
+
+		file >> position.y;
+		
+
+		for (int i = 0; i < inventorySlotSize; i++) {
+			for (int y = 0; y < 2; y++) {
+				file >> inventory[i][y];
+				std::cout << inventory[i][y] << '\n';
+			}
+		}
+	}
+
+	file.close();
+}

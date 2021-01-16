@@ -19,6 +19,7 @@ int main() {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- fix mouse offsetting when window dragged
+    //- add tile placing function
 
     World* world = new World;
     Player player("PizzaHannes");
@@ -83,7 +84,7 @@ int main() {
                 case sf::Event::Closed:
                     player.savePlayer();
                     window.close();
-                
+
                 //toggle debugInformation
                 case sf::Event::KeyReleased:
                     if (event.key.code == sf::Keyboard::F3) {
@@ -145,6 +146,7 @@ int main() {
         if (toggleDebugInformation) {
             renderer.renderDebugInformation(&player, &fps);
         }
+
         
         fps.update();
         

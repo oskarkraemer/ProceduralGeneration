@@ -93,7 +93,8 @@ int Renderer::renderDebugInformation(Player* player ,FPS* fps) {
 	}
 
 	text.setFont(font);
-	text.setString("FPS: " + std::to_string(fps->getFPS()) + "\n"
+	text.setString("Name: " + player->name + " UUID: " + player->uuid + "\n"
+				+ "FPS: " + std::to_string(fps->getFPS()) + "\n"
 				+ "X: " + std::to_string(player->position.x) + " Y: " + std::to_string(player->position.y) + "\n"
 				+ "Cx: " + std::to_string(player->chunkPosition.x) + " Cy: " + std::to_string(player->chunkPosition.y) + "\n"
 				+ "ChunkBuffer size: " + std::to_string(chunkBufferSize));

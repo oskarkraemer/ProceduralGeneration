@@ -23,6 +23,7 @@ public:
 
 	int inventory[32][2] = { 0 };
 	int inventorySlotSize = 32;
+	int selectedItem = 0;
 
 	Player(std::string Cname) {
 		name = Cname;
@@ -41,6 +42,9 @@ public:
 
 	//Removes a specific amount of items at a given index. Returns remaining amount.
 	int removeFromInventoryAtIndex(int index, int amount);
+
+	//Removes a specific amount of items. Returns remaining amount.
+	int removeFromInventory(int tileIndex, int amount);
 
 	//Returns bool if the inventory is full.
 	bool isInventoryFull();

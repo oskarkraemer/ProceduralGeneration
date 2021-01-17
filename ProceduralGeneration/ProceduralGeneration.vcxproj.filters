@@ -22,6 +22,9 @@
     <Filter Include="Chunks">
       <UniqueIdentifier>{fe687d09-bd33-4154-b27e-16b8b6bf497f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{f9622c7c-467d-4bf5-ace1-ab30c25b1c4c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FPS.cpp">
@@ -48,14 +51,14 @@
     <ClCompile Include="src\ChunkLoader.cpp">
       <Filter>Chunks</Filter>
     </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\Globals.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Mouse.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,9 +80,6 @@
     <ClInclude Include="src\Chunk.h">
       <Filter>Chunks</Filter>
     </ClInclude>
-    <ClInclude Include="src\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\ChunkLoader.h">
       <Filter>Chunks</Filter>
     </ClInclude>
@@ -89,8 +89,11 @@
     <ClInclude Include="src\Mouse.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
     <ClInclude Include="src\picosha2.h">
-      <Filter>Header Files</Filter>
+      <Filter>Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

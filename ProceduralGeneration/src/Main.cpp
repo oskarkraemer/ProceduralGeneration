@@ -19,7 +19,7 @@ int main() {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- fix mouse offsetting when window dragged
-    //- add tile placing function
+    //- add console
 
     World* world = new World;
     Player player("PizzaHannes");
@@ -120,6 +120,7 @@ int main() {
         window.setView(player.view);
 
         mouse.updateBlockBreak();
+        mouse.updateBlockPlace();
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            

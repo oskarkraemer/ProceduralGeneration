@@ -32,6 +32,7 @@ public:
 	void updateHighlighting(sf::RenderWindow* window);
 
 	void updateBlockBreak();
+	void updateBlockPlace();
 
 };
 

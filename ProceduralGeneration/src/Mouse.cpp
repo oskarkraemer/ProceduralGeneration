@@ -51,4 +51,39 @@ void Mouse::updateBlockBreak() {
 
     }
 end:;
+
+}
+
+void Mouse::updateBlockPlace() {
+    if (sf::Mouse::isButtonPressed(sf::Mouse::Right)) {
+        if (player->inventory[player->selectedItem][1] > 0) {
+            chunkPos.x = floor(tilePos.x / (float)chunk_size);
+            chunkPos.y = floor(tilePos.y / (float)chunk_size);
+
+            for (int i = 0; i < chunkBufferSize; i++) {
+                if (world->chunkBuffer[i].x == chunkPos.x && world->chunkBuffer[i].y == chunkPos.y) {
+                    for (int y = 0; y < chunk_size; y++) {
+                        for (int x = 0; x < chunk_size; x++) {
+                            if (y + chunkPos.y * chunk_size == tilePos.y && x + chunkPos.x * chunk_size == tilePos.x) {
+
+                                if (world->chunkBuffer[i].tileTypes[y * chunk_size + x] == 0) {
+
+                                    world->chunkBuffer[i].tileTypes[y * chunk_size + x] = player->inventory[player->selectedItem][0];
+                                    player->removeFromInventory(player->inventory[player->selectedItem][0], 1);
+
+                                    renderer->loadChunkVertices(&world->chunkBuffer[i]);
+
+                                    chunkLoader->saveChunkToFile(&world->chunkBuffer[i]);
+                                    goto end;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+end:;
+
 }

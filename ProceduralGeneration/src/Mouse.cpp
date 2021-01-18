@@ -11,10 +11,13 @@ void Mouse::updateHighlighting(sf::RenderWindow* window) {
     worldPos = window->mapPixelToCoords(pixelPos);
 
     
+    tilePos.x = floor(worldPos.x / tile_size);
+    tilePos.y = floor(worldPos.y / tile_size);
 
-
-    tilePos.x = floor(worldPos.x / tile_size) ;
-    tilePos.y = floor(worldPos.y / tile_size) ;
+    if (!isFullscreen) {
+        tilePos.x -= 5;
+        tilePos.y -= 3;
+    }
 
     highlightRectangle.setPosition(sf::Vector2f(tilePos.x * tile_size, tilePos.y * tile_size));
 

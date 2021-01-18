@@ -40,7 +40,6 @@ int Player::addToInventory(int tileIndex, int amount) {
 		}
 	}
 
-	std::cout << "[0] " << inventory[0][0] << " " << inventory[0][1] << "\n";
 
 	return amount;
 }
@@ -49,6 +48,7 @@ int Player::removeFromInventoryAtIndex(int index, int amount) {
 	while (inventory[index][1] > 0 && amount!=0) {
 		inventory[index][1]--;
 		amount--;
+		//delete item index when amount is 0
 	}
 
 	
@@ -73,6 +73,13 @@ int Player::removeFromInventory(int tileIndex, int amount) {
 	std::cout << "[0] " << inventory[0][0] << " " << inventory[0][1] << "\n";
 
 	return amount;
+}
+
+void Player::clearInventory() {
+	for (int i = 0; i < inventorySlotSize; i++) {
+		inventory[i][0] = 0; inventory[i][1] = 0;
+		std::cout << "["<<i<<"] " << inventory[i][0] << " " << inventory[i][1] << "\n";
+	}
 }
 
 bool Player::isInventoryFull() {

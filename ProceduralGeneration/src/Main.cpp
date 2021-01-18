@@ -34,13 +34,22 @@ int main() {
     CreateDirectory(L".\\world\\", NULL);
     CreateDirectory(L".\\world\\players\\", NULL);
     CreateDirectory(L".\\world\\chunks\\", NULL);
+
     
 
     FPS fps;
     TerrainGeneration tr;
-    //sf::RenderWindow window(sf::VideoMode(1280, 720), "ProcTerr");
-    sf::RenderWindow window(sf::VideoMode(1920, 1080), "ProcTerr");
-    //sf::RenderWindow window(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProcTerr", sf::Style::Fullscreen); //fullscreen
+    sf::RenderWindow window;
+    
+
+    if (isFullscreen) {
+        window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProceduralGeneration", sf::Style::Fullscreen);
+
+    }
+    else {
+        window.create(sf::VideoMode(1920, 1080), "ProceduralGeneration");
+    }
+    
 
     window.setFramerateLimit(144);
 
@@ -125,7 +134,7 @@ int main() {
                         console.clear();
                     }
                     else if (event.key.code == sf::Keyboard::Enter && toggleConsole) {
-                        //Process command
+                        console.processInput(&player, &window);
                         toggleConsole = false;
                         console.clear();
                     }

@@ -55,6 +55,9 @@ public:
 	//Removes a specific amount of items. Returns remaining amount.
 	int removeFromInventory(int tileIndex, int amount);
 
+	//Clears inventory
+	void clearInventory();
+
 	//Returns bool if the inventory is full.
 	bool isInventoryFull();
 

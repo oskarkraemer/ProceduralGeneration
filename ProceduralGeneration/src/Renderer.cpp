@@ -84,13 +84,8 @@ void Renderer::renderChunkBorders(World* world) {
 	}
 }
 
-int Renderer::renderDebugInformation(Player* player ,FPS* fps) {
-	sf::Font font;
+void Renderer::renderDebugInformation(Player* player ,FPS* fps) {
 	sf::Text text;
-
-	if (!font.loadFromFile("./res/Roboto-Regular.ttf")) {
-		return 1;
-	}
 
 	text.setFont(font);
 	text.setString("Name: " + player->name + " UUID: " + player->uuid + "\n"
@@ -104,4 +99,22 @@ int Renderer::renderDebugInformation(Player* player ,FPS* fps) {
 
 	window->draw(text);
 
+}
+
+void Renderer::renderConsole(Console* console) {
+	sf::RectangleShape rectangle(sf::Vector2f(window->getSize().x, 30));
+
+	sf::Text text;
+	text.setFont(font);
+	text.setString(console->input);
+	text.setCharacterSize(20);
+	text.setFillColor(sf::Color::Black);
+
+	rectangle.setPosition(0, window->getSize().y-30);
+	text.setPosition(0, window->getSize().y - 30);
+	
+	rectangle.setFillColor(sf::Color(sf::Color(0, 0, 0, 128)));
+
+	window->draw(rectangle);
+	window->draw(text);
 }

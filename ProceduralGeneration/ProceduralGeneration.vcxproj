@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\ChunkLoader.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
@@ -165,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ChunkLoader.h" />
+    <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\picosha2.h" />

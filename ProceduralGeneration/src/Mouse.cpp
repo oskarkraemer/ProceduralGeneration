@@ -10,11 +10,11 @@ void Mouse::updateHighlighting(sf::RenderWindow* window) {
     pixelPos = sf::Mouse::getPosition();
     worldPos = window->mapPixelToCoords(pixelPos);
 
-    worldPos.y -= 15;
+    
 
 
-    tilePos.x = floor(worldPos.x / tile_size) - 5;
-    tilePos.y = floor(worldPos.y / tile_size) - 3;
+    tilePos.x = floor(worldPos.x / tile_size) ;
+    tilePos.y = floor(worldPos.y / tile_size) ;
 
     highlightRectangle.setPosition(sf::Vector2f(tilePos.x * tile_size, tilePos.y * tile_size));
 

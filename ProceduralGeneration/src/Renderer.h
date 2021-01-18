@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "FPS.h"
 #include "World.h"
+#include "Console.h"
 
 
 
@@ -12,6 +13,7 @@ class Renderer
 
 public:
 	sf::RenderWindow* window;
+	sf::Font font;
 
 	void renderChunkBuffer(World* world);
 	sf::Color getTileColor(Chunk* chunk, uint16_t tileIndex);
@@ -19,7 +21,8 @@ public:
 
 	void renderPlayer(Player* player);
 	void renderChunkBorders(World* world);
-	int renderDebugInformation(Player* player, FPS* fps);
+	void renderDebugInformation(Player* player, FPS* fps);
+	void renderConsole(Console* console);
 
 	Renderer(sf::RenderWindow* cWindow) { window = cWindow; }
 };

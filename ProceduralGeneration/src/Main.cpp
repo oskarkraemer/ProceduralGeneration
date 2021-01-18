@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "ChunkLoader.h"
 #include "Mouse.h"
+#include "Console.h"
 
 #include "FPS.h"
 
@@ -33,6 +34,7 @@ int main() {
     CreateDirectory(L".\\world\\", NULL);
     CreateDirectory(L".\\world\\players\\", NULL);
     CreateDirectory(L".\\world\\chunks\\", NULL);
+    
 
     FPS fps;
     TerrainGeneration tr;
@@ -43,9 +45,16 @@ int main() {
     window.setFramerateLimit(144);
 
     Renderer renderer(&window);
+    if (!renderer.font.loadFromFile("./res/Roboto-Regular.ttf")) {
+        return 1;
+    }
+
     ChunkLoader chunkLoader(world, &renderer, &tr);
 
     Mouse mouse(world, &renderer, &chunkLoader, &player);
+
+    Console console;
+    
 
     world->chunkBuffer.resize(chunkBufferSize);
 
@@ -53,6 +62,7 @@ int main() {
     player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
 
     bool toggleDebugInformation = false;
+    bool toggleConsole = false;
     
     for (int i = 0; i < chunkBufferSize; i++) {
         world->chunkBuffer[i] = Chunk();
@@ -87,12 +97,37 @@ int main() {
                     player.savePlayer();
                     window.close();
 
-                //toggle debugInformation
+                case sf::Event::TextEntered:
+                    if (toggleConsole) {
+                        if (event.text.unicode == '\b') {
+                            if (console.input.getSize() > 0) {
+                                console.input.erase(console.input.getSize() - 1, 1);
+                            }
+                        }
+                        else if (event.text.unicode < 128 && event.text.unicode!=27) {
+                            console.input += event.text.unicode;
+                        }
+                        
+                    }
+
+
                 case sf::Event::KeyReleased:
                     if (event.key.code == sf::Keyboard::F3) {
                         toggleDebugInformation = !toggleDebugInformation;
-                        player.updatePlaytime();
-                        std::cout << player.playTime << "\n";
+                    }
+
+                    else if (event.key.code == sf::Keyboard::T) {
+                        toggleConsole = true;
+                    }
+
+                    else if (event.key.code == sf::Keyboard::Escape) {
+                        toggleConsole = false;
+                        console.clear();
+                    }
+                    else if (event.key.code == sf::Keyboard::Enter && toggleConsole) {
+                        //Process command
+                        toggleConsole = false;
+                        console.clear();
                     }
             }
             
@@ -102,25 +137,25 @@ int main() {
         float tempSpeed = elapsedTime.asSeconds() * movSpeed;
 
         
-
-        //MOVEMINT
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
-            //std::cout << "Pressed W" << player.position.y << " "<<player.chunkPosition.y<< std::endl;
-            player.setPosition(sf::Vector2f(player.position.x, player.position.y - tempSpeed));
+        if (!toggleConsole) {
+            //MOVEMINT
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+                //std::cout << "Pressed W" << player.position.y << " "<<player.chunkPosition.y<< std::endl;
+                player.setPosition(sf::Vector2f(player.position.x, player.position.y - tempSpeed));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+                //std::cout << "Pressed D" << player.position.x << " " << player.chunkPosition.x << std::endl;
+                player.setPosition(sf::Vector2f(player.position.x + tempSpeed, player.position.y));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+                //std::cout << "Pressed A" << player.position.x << " " << player.chunkPosition.x << std::endl;
+                player.setPosition(sf::Vector2f(player.position.x - tempSpeed, player.position.y));
+            }
+            if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+                //std::cout << "Pressed S" << player.position.y << " " << player.chunkPosition.y << std::endl;
+                player.setPosition(sf::Vector2f(player.position.x, player.position.y + tempSpeed));
+            }
         }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
-            //std::cout << "Pressed D" << player.position.x << " " << player.chunkPosition.x << std::endl;
-            player.setPosition(sf::Vector2f(player.position.x+ tempSpeed, player.position.y));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-            //std::cout << "Pressed A" << player.position.x << " " << player.chunkPosition.x << std::endl;
-            player.setPosition(sf::Vector2f(player.position.x - tempSpeed, player.position.y));
-        }
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
-            //std::cout << "Pressed S" << player.position.y << " " << player.chunkPosition.y << std::endl;
-            player.setPosition(sf::Vector2f(player.position.x, player.position.y + tempSpeed));
-        }
-
 
         window.clear(sf::Color::Black);
         window.setView(player.view);
@@ -154,6 +189,11 @@ int main() {
             renderer.renderDebugInformation(&player, &fps);
         }
 
+
+        //Render Console
+        if (toggleConsole) {
+            renderer.renderConsole(&console);
+        }
         
         fps.update();
         

@@ -96,14 +96,20 @@ void Player::savePlayer() {
 
 	file.open(ss.str());
 
+	//Save position Vector
 	file << position.x << '\n';
 	file << position.y << '\n';
 
+	//Save inventory
 	for (int i = 0; i < 32; i++) {
 		for (int y = 0; y < 2; y++) {
 			file << inventory[i][y] << "\n";
 		}
 	}
+
+	//Save playtime
+	updatePlaytime();
+	file << playTime << '\n';
 
 	file.close();
 
@@ -124,18 +130,27 @@ void Player::loadPlayer() {
 		std::cout << "File opening failed!" << "\n";
 	}
 	else {
+		//Load position Vector
 		file >> position.x;
-
 		file >> position.y;
 		
-
+		//Load inventory
 		for (int i = 0; i < inventorySlotSize; i++) {
 			for (int y = 0; y < 2; y++) {
 				file >> inventory[i][y];
-				std::cout << inventory[i][y] << '\n';
 			}
 		}
+
+		//Load playtime
+		file >> playTime;
+
 	}
 
 	file.close();
+}
+
+void Player::updatePlaytime() {
+	std::chrono::high_resolution_clock::time_point t_end = std::chrono::high_resolution_clock::now();
+	playTime += std::chrono::duration_cast<std::chrono::duration<double>>(t_end - t_start).count();
+	t_start = std::chrono::high_resolution_clock::now();
 }

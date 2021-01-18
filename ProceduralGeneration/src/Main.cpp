@@ -22,11 +22,13 @@ int main() {
     //- add console
 
     World* world = new World;
+
+    //Initialize Player
     Player player("PizzaHannes");
     player.loadPlayer();
-    std::cout << player.position.x << " " << player.position.y;
     
     player.setPosition(player.position);
+    
 
     CreateDirectory(L".\\world\\", NULL);
     CreateDirectory(L".\\world\\players\\", NULL);
@@ -89,6 +91,8 @@ int main() {
                 case sf::Event::KeyReleased:
                     if (event.key.code == sf::Keyboard::F3) {
                         toggleDebugInformation = !toggleDebugInformation;
+                        player.updatePlaytime();
+                        std::cout << player.playTime << "\n";
                     }
             }
             
@@ -96,6 +100,8 @@ int main() {
         
         sf::Time elapsedTime = clock.restart();
         float tempSpeed = elapsedTime.asSeconds() * movSpeed;
+
+        
 
         //MOVEMINT
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {

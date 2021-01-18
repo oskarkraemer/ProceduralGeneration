@@ -8,6 +8,7 @@
 #include <fstream>
 #include <sstream>
 #include <windows.h>
+#include <chrono>
 
 class Player
 {
@@ -15,15 +16,23 @@ public:
 	std::string name;
 	std::string uuid;
 
+
+	//Position data
 	sf::Vector2f position{0,0};
 	sf::Vector2f chunkPosition = {0, 0};
 	sf::Vector2f oldChunkPosition = { 0, 0 };
 
 	sf::View view;
 
+	//Inventory data
 	int inventory[32][2] = { 0 };
 	int inventorySlotSize = 32;
 	int selectedItem = 0;
+
+	//Playtime data
+	uint32_t playTime = 0;
+	std::chrono::high_resolution_clock::time_point t_start = std::chrono::high_resolution_clock::now();
+
 
 	Player(std::string Cname) {
 		name = Cname;
@@ -61,6 +70,12 @@ public:
 
 	void savePlayer();
 	void loadPlayer();
+
+	// O------------------------------------------------------------------------------O
+	// | Playtime-Functions                                                           |
+	// O------------------------------------------------------------------------------O
+
+	void updatePlaytime();
 
 };
 

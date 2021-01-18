@@ -3,8 +3,6 @@
 void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
     int cntr = 0;
 
-    std::cout << std::endl << "[NEW CHUNK UPDATE]" << "\n";
-
 
     for (int x = player->chunkPosition.x - load_radius; x <= player->chunkPosition.x + load_radius; x++) {
         for (int y = player->chunkPosition.y - load_radius; y <= player->chunkPosition.y + load_radius; y++) {

@@ -15,7 +15,7 @@ sf::Color Renderer::getTileColor(Chunk* chunk, uint16_t tileIndex) {
 	switch ((int)chunk->tileTypes[tileIndex]) {
 		case 0:
 			//Air
-			return sf::Color(sf::Color::Transparent);
+			return sf::Color(sf::Color(26, 13, 0));
 		case 1:
 			//Grass
 			return sf::Color(sf::Color(54, 110, 71));

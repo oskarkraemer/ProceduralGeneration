@@ -24,14 +24,17 @@ float TerrainGeneration::getTile(int x, int y, sf::Vector2f chunkOffset)
 	float noise = pn.noise(xCoord, yCoord, 0);
 
 	//map different blocks to perlin value
-	if (noise < 0.4) {
-		return 3; // BLUE
+	if (noise < 0.3) {
+		return 3; // WATER
+	} 
+	else if (noise < 0.35) {
+		return 4; // SAND
 	}
 	else if (noise < 0.7) {
-		return 1; // GREEN
+		return 1; // GRASS
 	}
 	else {
-		return 2; // RED
+		return 2; // STONE
 	}
 
 

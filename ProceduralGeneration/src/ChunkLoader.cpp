@@ -8,7 +8,7 @@ void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
         for (int y = player->chunkPosition.y - load_radius; y <= player->chunkPosition.y + load_radius; y++) {
 
             std::stringstream ss;
-            ss << "./world/chunks/" << x << "_" << y << ".chunk";
+            ss << worldsFolderPath << world->name << "/chunks/" << x << "_" << y << ".chunk";
 
             std::ifstream file;
             file.open(ss.str());
@@ -39,7 +39,7 @@ void ChunkLoader::saveChunkToFile(Chunk* chunk) {
     std::ofstream file;
     std::stringstream ss;
 
-    ss << "./" << world->name << "/chunks/" << chunk->x << "_" << chunk->y << ".chunk";
+    ss << worldsFolderPath << world->name << "/chunks/" << chunk->x << "_" << chunk->y << ".chunk";
 
     file.open(ss.str());
 
@@ -55,7 +55,7 @@ Chunk ChunkLoader::loadChunkFromFile(int x, int y) {
 
     //std::cout << "Load File: " << x << " " << y << "\n";
 
-    ss << "./"<< world->name <<"/chunks/" << x << "_" << y << ".chunk";
+    ss << worldsFolderPath << world->name <<"/chunks/" << x << "_" << y << ".chunk";
 
     file.open(ss.str());
 

@@ -1,6 +1,6 @@
 #pragma once
 #include <stdint.h>
-
+#include <string>
 
 //Number of tiles in chunk
 extern uint8_t chunk_size;
@@ -16,3 +16,6 @@ extern int chunkBufferSize;
 
 //is Window fullscreen
 extern bool isFullscreen;
+
+//path to the worlds folder
+extern std::string worldsFolderPath;

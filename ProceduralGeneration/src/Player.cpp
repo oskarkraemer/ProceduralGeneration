@@ -99,7 +99,7 @@ void Player::savePlayer(World* world) {
 	std::ofstream file;
 	std::stringstream ss;
 
-	ss << "./"<< world->name <<"/players/" << uuid << ".player";
+	ss << worldsFolderPath << world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 
@@ -129,7 +129,7 @@ void Player::loadPlayer(World* world) {
 
 	std::string line;
 
-	ss << "./"<< world->name <<"/players/" << uuid << ".player";
+	ss << worldsFolderPath << world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 

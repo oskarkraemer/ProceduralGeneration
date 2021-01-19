@@ -4,17 +4,22 @@ int World::createWorld() {
 	int status = 0;
 
 	//Create Directories
-	std::string path = ".\\" + name + "\\";
+	std::string path = worldsFolderPath;
 	std::wstring stemp = std::wstring(path.begin(), path.end());
 	LPCWSTR sw = stemp.c_str();
 	status = CreateDirectory(sw, NULL);
 
-	path = ".\\" + name + "\\players\\";
+	path = worldsFolderPath + name + "\\";
 	stemp = std::wstring(path.begin(), path.end());
 	sw = stemp.c_str();
 	CreateDirectory(sw, NULL);
 
-	path = ".\\" + name + "\\chunks\\";
+	path = worldsFolderPath + name + "\\players\\";
+	stemp = std::wstring(path.begin(), path.end());
+	sw = stemp.c_str();
+	CreateDirectory(sw, NULL);
+
+	path = worldsFolderPath + name + "\\chunks\\";
 	stemp = std::wstring(path.begin(), path.end());
 	sw = stemp.c_str();
 	CreateDirectory(sw, NULL);
@@ -29,7 +34,7 @@ void World::saveWorld() {
 	std::ofstream file;
 	std::stringstream ss;
 
-	ss << "./"<< name << "/" << "meta.data";
+	ss << worldsFolderPath << name << "/" << "meta.data";
 
 	file.open(ss.str());
 
@@ -45,7 +50,7 @@ void World::loadWorld() {
 
 	std::string line;
 
-	ss << "./" << name << "/" << "meta.data";
+	ss << worldsFolderPath << name << "/" << "meta.data";
 
 	file.open(ss.str());
 

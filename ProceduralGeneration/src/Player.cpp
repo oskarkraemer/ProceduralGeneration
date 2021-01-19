@@ -94,12 +94,12 @@ bool Player::isInventoryFull() {
 	return !emptySlot;
 }
 
-void Player::savePlayer() {
+void Player::savePlayer(World* world) {
 
 	std::ofstream file;
 	std::stringstream ss;
 
-	ss << "./world/players/" << uuid << ".player";
+	ss << "./"<< world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 
@@ -123,13 +123,13 @@ void Player::savePlayer() {
 	
 }
 
-void Player::loadPlayer() {
+void Player::loadPlayer(World* world) {
 	std::ifstream file;
 	std::stringstream ss;
 
 	std::string line;
 
-	ss << "./world/players/" << uuid << ".player";
+	ss << "./"<< world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 

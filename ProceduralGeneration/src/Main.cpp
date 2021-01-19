@@ -24,17 +24,10 @@ int main() {
 
     World* world = new World;
 
+
     //Initialize Player
     Player player("PizzaHannes");
-    player.loadPlayer();
     
-    player.setPosition(player.position);
-    
-
-    CreateDirectory(L".\\world\\", NULL);
-    CreateDirectory(L".\\world\\players\\", NULL);
-    CreateDirectory(L".\\world\\chunks\\", NULL);
-
     
 
     FPS fps;
@@ -103,7 +96,7 @@ int main() {
         {
             switch (event.type) {
                 case sf::Event::Closed:
-                    player.savePlayer();
+                    player.savePlayer(world);
                     window.close();
 
                 case sf::Event::TextEntered:
@@ -134,7 +127,7 @@ int main() {
                         console.clear();
                     }
                     else if (event.key.code == sf::Keyboard::Enter && toggleConsole) {
-                        console.processInput(&player, &window);
+                        console.processInput(&player, &window, world);
                         toggleConsole = false;
                         console.clear();
                     }
@@ -174,13 +167,16 @@ int main() {
 
         if (player.chunkPosition.x != player.oldChunkPosition.x || player.chunkPosition.y != player.oldChunkPosition.y) {
            
-            chunkLoader.loadChunksToBuffer(&player, true);
+            if (world->loaded) {
+                chunkLoader.loadChunksToBuffer(&player, true);
 
-            //std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
-            //t1.join();
 
-            player.oldChunkPosition.x = player.chunkPosition.x;
-            player.oldChunkPosition.y = player.chunkPosition.y;
+                //std::thread t1(&ChunkLoader::loadChunksToBuffer, &chunkLoader, &player, true);
+                //t1.join();
+
+                player.oldChunkPosition.x = player.chunkPosition.x;
+                player.oldChunkPosition.y = player.chunkPosition.y;
+            }
         }
 
         renderer.renderChunkBuffer(world);

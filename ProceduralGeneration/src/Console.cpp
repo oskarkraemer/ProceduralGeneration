@@ -1,6 +1,6 @@
 #include "Console.h"
 
-int Console::processInput(Player* player, sf::RenderWindow* window) {
+int Console::processInput(Player* player, sf::RenderWindow* window, World* world) {
 	//SPLIT ARGUMENTS
 	
 	std::string string = input.toAnsiString();
@@ -17,10 +17,7 @@ int Console::processInput(Player* player, sf::RenderWindow* window) {
 		}
 	} while (iss);
 
-	//Print ArgsVector
-	for (int i = 0; i < args.size(); i++) {
-		std::cout << args[i] << std::endl;
-	}
+	std::cout << "[Command]: " << string << "\n";
 
 	//Interpret args
 
@@ -30,7 +27,7 @@ int Console::processInput(Player* player, sf::RenderWindow* window) {
 	}
 
 	//setFullscreen
-	else if (args[0] == "setFullscreen") {
+	else if (args[0] == "setFullscreen" && args.size()==2) {
 		if (args[1] == "true") {
 			isFullscreen = true;
 			window->create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProceduralGeneration", sf::Style::Fullscreen);
@@ -43,8 +40,28 @@ int Console::processInput(Player* player, sf::RenderWindow* window) {
 
 	//Exits and saves Game
 	else if (args[0] == "exit") {
-		player->savePlayer();
+		player->savePlayer(world);
 		window->close();
+	}
+
+	//create world with name
+	else if (args[0] == "createWorld" && args.size() == 2) {
+		if (args[1] != "") {
+			world->name = args[1];
+			world->createWorld();
+			world->loadWorld();
+		}
+	}
+
+	//load world with name
+	else if (args[0] == "loadWorld" && args.size() == 2) {
+		if (args[1] != "") {
+			world->name = args[1];
+			world->loadWorld();
+			player->loadPlayer(world);
+
+			player->setPosition(player->position);
+		}
 	}
 	
 

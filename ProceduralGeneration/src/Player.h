@@ -1,13 +1,13 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Globals.h"
+#include "World.h"
 #include "picosha2.h"
 #include <stdint.h>
 
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <windows.h>
 #include <chrono>
 
 class Player
@@ -71,8 +71,8 @@ public:
 	// | Saving-Functions                                                             |
 	// O------------------------------------------------------------------------------O
 
-	void savePlayer();
-	void loadPlayer();
+	void savePlayer(World* world);
+	void loadPlayer(World* world);
 
 	// O------------------------------------------------------------------------------O
 	// | Playtime-Functions                                                           |

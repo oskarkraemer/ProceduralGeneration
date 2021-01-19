@@ -39,7 +39,7 @@ void ChunkLoader::saveChunkToFile(Chunk* chunk) {
     std::ofstream file;
     std::stringstream ss;
 
-    ss << "./world/chunks/" << chunk->x << "_" << chunk->y << ".chunk";
+    ss << "./" << world->name << "/chunks/" << chunk->x << "_" << chunk->y << ".chunk";
 
     file.open(ss.str());
 
@@ -55,7 +55,7 @@ Chunk ChunkLoader::loadChunkFromFile(int x, int y) {
 
     //std::cout << "Load File: " << x << " " << y << "\n";
 
-    ss << "./world/chunks/" << x << "_" << y << ".chunk";
+    ss << "./"<< world->name <<"/chunks/" << x << "_" << y << ".chunk";
 
     file.open(ss.str());
 

@@ -108,7 +108,7 @@ void Renderer::renderConsole(Console* console) {
 	text.setFont(font);
 	text.setString(console->input);
 	text.setCharacterSize(20);
-	text.setFillColor(sf::Color::Black);
+	text.setFillColor(sf::Color::White);
 
 	rectangle.setPosition(0, window->getSize().y-30);
 	text.setPosition(0, window->getSize().y - 30);

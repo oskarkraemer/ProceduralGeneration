@@ -103,6 +103,7 @@ int main() {
                 case sf::Event::Closed:
                     player.savePlayer(world);
                     window.close();
+                    break;
 
                 case sf::Event::TextEntered:
                     if (toggleConsole) {
@@ -116,6 +117,7 @@ int main() {
                         }
                         
                     }
+                    break;
 
 
                 case sf::Event::KeyReleased:
@@ -136,10 +138,10 @@ int main() {
                         toggleConsole = false;
                         console.clear();
                     }
+                    break;
 
 
                 case sf::Event::MouseWheelMoved:
-                    std::cout << event.mouseWheel.delta * -1 << "\n";
                     if (player.selectedItem == 0 && event.mouseWheel.delta == 1) {
 
                     }
@@ -149,6 +151,7 @@ int main() {
                     else {
                         player.selectedItem += event.mouseWheel.delta * -1;
                     }
+                    break;
             }
             
         }

@@ -128,7 +128,13 @@ void Renderer::renderHotbar(Player* player) {
 	hotbarRectangle.setOutlineThickness(1);
 	hotbarRectangle.setOutlineColor(sf::Color::Black);
 
-	selectedRectangle.setOutlineColor(sf::Color::Red);
+	if (player->name == "PizzaHannes") {
+		selectedRectangle.setOutlineColor(sf::Color(218, 165, 32));
+	}
+	else {
+		selectedRectangle.setOutlineColor(sf::Color::Red);
+	}
+	
 	selectedRectangle.setOutlineThickness(2);
 	selectedRectangle.setFillColor(sf::Color::Transparent);
 

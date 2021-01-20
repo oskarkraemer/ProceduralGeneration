@@ -143,6 +143,7 @@ void Player::loadPlayer(World* world) {
 		//Load position Vector
 		file >> position.x;
 		file >> position.y;
+		setPosition(position);
 		
 		//Load inventory
 		for (int i = 0; i < inventorySlotSize; i++) {

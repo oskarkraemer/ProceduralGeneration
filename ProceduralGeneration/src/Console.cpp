@@ -61,13 +61,20 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 			player->loadPlayer(world);
 
 			player->setPosition(player->position);
-			player->oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
 		}
 	}
 	
+	//give items to player
 	else if (args[0] == "give" && args.size() == 3) {
 		if (args[1] != "" && args[2] != "") {
 			player->addToInventory(std::stoi(args[1]), std::stoi(args[2]));
+		}
+	}
+
+	//teleport player to coordinates
+	else if (args[0] == "tp" && args.size() == 3) {
+		if (!args[1].empty() && args[1].find_first_not_of("0123456789") == std::string::npos && !args[2].empty() && args[2].find_first_not_of("0123456789") == std::string::npos) {
+			player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
 		}
 	}
 

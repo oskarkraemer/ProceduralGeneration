@@ -33,7 +33,6 @@ int main() {
     
     player.loadPlayer(world);
 
-    player.setPosition(player.position);
 
     FPS fps;
     TerrainGeneration tr;

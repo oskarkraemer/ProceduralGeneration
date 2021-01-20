@@ -25,6 +25,9 @@
     <Filter Include="Player">
       <UniqueIdentifier>{f9622c7c-467d-4bf5-ace1-ab30c25b1c4c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Console">
+      <UniqueIdentifier>{73dca7b6-1588-4b7a-a50e-486fefe6fa79}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FPS.cpp">
@@ -61,7 +64,7 @@
       <Filter>Player</Filter>
     </ClCompile>
     <ClCompile Include="src\Console.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Console</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -99,7 +102,10 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="src\Console.h">
-      <Filter>Header Files</Filter>
+      <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="src\CommandTemplate.h">
+      <Filter>Console</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

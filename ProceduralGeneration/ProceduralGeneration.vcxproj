@@ -166,6 +166,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ChunkLoader.h" />
+    <ClInclude Include="src\CommandTemplate.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\Mouse.h" />

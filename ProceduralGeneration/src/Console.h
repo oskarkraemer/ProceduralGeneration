@@ -6,6 +6,7 @@
 
 #include "Player.h"
 #include "World.h"
+#include "CommandTemplate.h"
 
 class Console
 {
@@ -14,6 +15,9 @@ public:
 
 	//Procceses Input and returns 1 when unsucsessfull
 	int processInput(Player* player, sf::RenderWindow* window, World* world);
+
+	bool checkTemplate(CommandTemplate* commandTemplate, std::vector<std::string>* args);
+
 	void clear();
 
 	

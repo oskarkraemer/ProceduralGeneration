@@ -61,20 +61,13 @@ int main() {
     Mouse mouse(world, &renderer, &chunkLoader, &player);
 
     Console console;
+
+
     
-
-    world->chunkBuffer.resize(chunkBufferSize);
-
-
-    player.oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
 
     bool toggleDebugInformation = false;
     bool toggleConsole = false;
     
-    for (int i = 0; i < chunkBufferSize; i++) {
-        world->chunkBuffer[i] = Chunk();
-    }
-
 
     //
     // Display used Memory

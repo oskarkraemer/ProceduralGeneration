@@ -64,5 +64,14 @@ void World::loadWorld() {
 		loaded = true;
 	}
 
+	chunkBuffer.resize(chunkBufferSize);
+	
+	
+	for (int i = 0; i < chunkBufferSize; i++) {
+		chunkBuffer[i] = Chunk();
+	}
+
+
+
 	file.close();
 }

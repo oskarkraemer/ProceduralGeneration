@@ -81,7 +81,7 @@ int Player::removeFromInventory(int tileIndex, int amount) {
 void Player::clearInventory() {
 	for (int i = 0; i < inventorySlotSize; i++) {
 		inventory[i][0] = 0; inventory[i][1] = 0;
-		std::cout << "["<<i<<"] " << inventory[i][0] << " " << inventory[i][1] << "\n";
+		//std::cout << "["<<i<<"] " << inventory[i][0] << " " << inventory[i][1] << "\n";
 	}
 }
 

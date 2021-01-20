@@ -61,9 +61,15 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 			player->loadPlayer(world);
 
 			player->setPosition(player->position);
+			player->oldChunkPosition.x++; // create difference between old and new position in order to trigger chunk generation
 		}
 	}
 	
+	else if (args[0] == "give" && args.size() == 3) {
+		if (args[1] != "" && args[2] != "") {
+			player->addToInventory(std::stoi(args[1]), std::stoi(args[2]));
+		}
+	}
 
 	return 0;
 }

@@ -48,7 +48,10 @@ int Player::removeFromInventoryAtIndex(int index, int amount) {
 	while (inventory[index][1] > 0 && amount!=0) {
 		inventory[index][1]--;
 		amount--;
-		//delete item index when amount is 0
+		if (inventory[index][1] == 0) {
+			inventory[index][0] = 0;
+		}
+		
 	}
 
 	

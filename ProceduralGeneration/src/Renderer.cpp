@@ -10,9 +10,9 @@ void Renderer::renderChunkBuffer(World* world) {
 
 }
 
-sf::Color Renderer::getTileColor(Chunk* chunk, uint16_t tileIndex) {
+sf::Color Renderer::getTileColor(uint8_t tileID) {
 
-	switch ((int)chunk->tileTypes[tileIndex]) {
+	switch ((int)tileID) {
 		case 0:
 			//Air
 			return sf::Color(sf::Color(26, 13, 0));
@@ -43,7 +43,7 @@ void Renderer::loadChunkVertices(Chunk* chunk) {
 	for (int y = 0; y < chunk_size; y++) {
 		for (int x = 0; x < chunk_size; x++) {
 			sf::Vertex* quad = &chunk->vertices[(y * chunk_size + x) * 4];
-			sf::Color color = getTileColor(chunk, y * chunk_size + x);
+			sf::Color color = getTileColor(chunk->tileTypes[y * chunk_size + x]);
 
 
 			quad[0].position = sf::Vector2f(x * tile_size + Xoff, y * tile_size + Yoff);
@@ -117,4 +117,36 @@ void Renderer::renderConsole(Console* console) {
 
 	window->draw(rectangle);
 	window->draw(text);
+}
+
+void Renderer::renderHotbar(Player* player) {
+	sf::RectangleShape hotbarRectangle(sf::Vector2f(64, 64));
+	sf::RectangleShape itemRectangle(sf::Vector2f(48, 48));
+	sf::RectangleShape selectedRectangle(sf::Vector2f(64, 64));
+
+	hotbarRectangle.setFillColor(sf::Color(0, 0, 0, 128));
+	hotbarRectangle.setOutlineThickness(1);
+	hotbarRectangle.setOutlineColor(sf::Color::Black);
+
+	selectedRectangle.setOutlineColor(sf::Color::Red);
+	selectedRectangle.setOutlineThickness(2);
+	selectedRectangle.setFillColor(sf::Color::Transparent);
+
+	for (int i = 0; i < 8; i++) {
+		hotbarRectangle.setPosition(window->getSize().x / 2 -320 + (i*74), window->getSize().y - 74);
+		window->draw(hotbarRectangle);
+
+		if (player->selectedItem == i) {
+			selectedRectangle.setPosition(window->getSize().x / 2 - 320 + (i * 74), window->getSize().y - 74);
+			window->draw(selectedRectangle);
+		}
+
+		if ((int)player->inventory[i][0] != 0) {
+			itemRectangle.setFillColor(getTileColor((int)player->inventory[i][0]));
+			itemRectangle.setPosition(window->getSize().x / 2 - 320 + (i * 74) + 8, window->getSize().y - 74 + 8);
+			window->draw(itemRectangle);
+		}
+	}
+
+	
 }

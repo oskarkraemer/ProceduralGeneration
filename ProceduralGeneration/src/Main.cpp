@@ -23,12 +23,17 @@ int main() {
     //- add console
 
     World* world = new World;
+    world->name = "pommes";
+    world->loadWorld();
+
 
 
     //Initialize Player
     Player player("PizzaHannes");
     
-    
+    player.loadPlayer(world);
+
+    player.setPosition(player.position);
 
     FPS fps;
     TerrainGeneration tr;
@@ -40,7 +45,7 @@ int main() {
 
     }
     else {
-        window.create(sf::VideoMode(1920, 1080), "ProceduralGeneration");
+        window.create(sf::VideoMode(1920, 1080), "ProceduralGeneration", sf::Style::Titlebar | sf::Style::Close);
     }
     
 
@@ -131,6 +136,19 @@ int main() {
                         toggleConsole = false;
                         console.clear();
                     }
+
+
+                case sf::Event::MouseWheelMoved:
+                    std::cout << event.mouseWheel.delta * -1 << "\n";
+                    if (player.selectedItem == 0 && event.mouseWheel.delta == 1) {
+
+                    }
+                    else if (player.selectedItem == 7 && event.mouseWheel.delta == -1) {
+
+                    }
+                    else {
+                        player.selectedItem += event.mouseWheel.delta * -1;
+                    }
             }
             
         }
@@ -190,10 +208,12 @@ int main() {
 
         //Render GUI
         window.setView(window.getDefaultView());
+
         if (toggleDebugInformation) {
             renderer.renderDebugInformation(&player, &fps);
         }
 
+        renderer.renderHotbar(&player);
 
         //Render Console
         if (toggleConsole) {

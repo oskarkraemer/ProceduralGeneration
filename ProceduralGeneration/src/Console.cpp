@@ -22,12 +22,12 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	//Interpret args
 
 	//Clear inventory
-	if ( checkTemplate( &CommandTemplate("clear", 0) , &args) ) {
+	if ( checkTemplate("clear", 0, &args) ) {
 		player->clearInventory();
 	}
 
 	//setFullscreen
-	else if (checkTemplate(&CommandTemplate("setFullscreen", 1, std::vector<Types::Type> {Types::BOOL}), &args)) {
+	else if (checkTemplate("setFullscreen", 1, &args, &std::vector<Types::Type> {Types::BOOL})) {
 		if (args[1] == "true") {
 			isFullscreen = true;
 			window->create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProceduralGeneration", sf::Style::Fullscreen);
@@ -39,20 +39,20 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	}
 
 	//Exits and saves Game
-	else if (checkTemplate(&CommandTemplate("exit", 0), &args)) {
+	else if (checkTemplate("exit", 0, &args)) {
 		player->savePlayer(world);
 		window->close();
 	}
 
 	//create world with name
-	else if (checkTemplate(&CommandTemplate("createWorld", 1, std::vector<Types::Type> {Types::STRING}), &args)) {
+	else if (checkTemplate("createWorld", 1, &args, &std::vector<Types::Type> {Types::STRING})) {
 		world->name = args[1];
 		world->createWorld();
 		world->loadWorld();
 	}
 
 	//load world with name
-	else if (checkTemplate(&CommandTemplate("loadWorld", 1, std::vector<Types::Type> {Types::STRING}), &args)) {
+	else if (checkTemplate("loadWorld", 1, &args, &std::vector<Types::Type> {Types::STRING})) {
 		world->name = args[1];
 		world->loadWorld();
 		player->loadPlayer(world);
@@ -62,42 +62,42 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	}
 	
 	//give items to player
-	else if (checkTemplate(&CommandTemplate("give", 2, std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL}), &args)) {
+	else if (checkTemplate("give", 2, &args, &std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL})) {
 		player->addToInventory(std::stoi(args[1]), std::stoi(args[2]));
 	}
 
 	//teleport player to coordinates
-	else if (checkTemplate(&CommandTemplate("tp", 2, std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL}), &args)) {
+	else if (checkTemplate("tp", 2, &args, &std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL})) {
 		player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
 	}
 
 	return 0;
 }
 
-bool Console::checkTemplate(CommandTemplate* commandTemplate, std::vector<std::string>* args) {
+bool Console::checkTemplate(const char* command, int argument_count, std::vector<std::string>* args, std::vector<Types::Type>* types) {
 	//Check if Vector is the appropriate size
-	if (args->size() == commandTemplate->argument_count + 1) {
+	if (args->size() == argument_count + 1) {
 
 		//Check if there are any empty emelements in Vector
-		for (int i = 0; i < commandTemplate->argument_count + 1; i++) {
+		for (int i = 0; i < argument_count + 1; i++) {
 			if (args->at(i).empty()) { goto failed; }
 		}
 
 		//Check if element 1 in vector is command
-		if (args->at(0) == commandTemplate->command) {
+		if (args->at(0) == command) {
 
 			//Check if the remaining arguments have the right type
-			for (int i = 0; i < commandTemplate->argument_count; i++) {
+			for (int i = 0; i < argument_count; i++) {
 
 				//Check if type is BOOL
-				if (commandTemplate->types[i] == Types::BOOL) {
+				if (types->at(i) == Types::BOOL) {
 					if (args->at(i + 1) != "true" && args->at(i + 1) != "false") {
 						goto failed;
 					}
 				}
 
 				//Check if type is NUMERICAL
-				if (commandTemplate->types[i] == Types::NUMERICAL) {
+				if (types->at(i) == Types::NUMERICAL) {
 					if(args->at(i + 1).find_first_not_of("0123456789") != std::string::npos) {
 						goto failed;
 					}

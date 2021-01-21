@@ -6,7 +6,12 @@
 
 #include "Player.h"
 #include "World.h"
-#include "CommandTemplate.h"
+
+namespace Types {
+	enum Type {
+		NUMERICAL, STRING, BOOL
+	};
+}
 
 class Console
 {
@@ -16,7 +21,7 @@ public:
 	//Procceses Input and returns 1 when unsucsessfull
 	int processInput(Player* player, sf::RenderWindow* window, World* world);
 
-	bool checkTemplate(CommandTemplate* commandTemplate, std::vector<std::string>* args);
+	bool checkTemplate(const char* command, int argument_count, std::vector<std::string>* args, std::vector<Types::Type>* types = &std::vector<Types::Type>());
 
 	void clear();
 

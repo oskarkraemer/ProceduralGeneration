@@ -104,8 +104,5 @@
     <ClInclude Include="src\Console.h">
       <Filter>Console</Filter>
     </ClInclude>
-    <ClInclude Include="src\CommandTemplate.h">
-      <Filter>Console</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

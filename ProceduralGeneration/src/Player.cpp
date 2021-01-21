@@ -136,6 +136,9 @@ void Player::loadPlayer(World* world) {
 
 	file.open(ss.str());
 
+	//Clear Inventory
+	clearInventory();
+
 	if (!file.good()) {
 		std::cout << "File opening failed!" << "\n";
 	}
@@ -146,6 +149,9 @@ void Player::loadPlayer(World* world) {
 		setPosition(position);
 		
 		//Load inventory
+
+
+		//Fill inventory with saved items
 		for (int i = 0; i < inventorySlotSize; i++) {
 			for (int y = 0; y < 2; y++) {
 				file >> inventory[i][y];

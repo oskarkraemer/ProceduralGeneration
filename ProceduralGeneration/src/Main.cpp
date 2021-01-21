@@ -21,17 +21,18 @@ int main() {
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- fix mouse offsetting when window dragged
     //- add console
+    //- fix world loading and creating bug
 
     World* world = new World;
-    world->name = "pommes";
-    world->loadWorld();
+    //world->name = "pommes";
+    //world->loadWorld();
 
 
 
     //Initialize Player
     Player player("PizzaHannes");
     
-    player.loadPlayer(world);
+    //player.loadPlayer(world);
 
 
     FPS fps;
@@ -192,7 +193,9 @@ int main() {
             }
         }
 
+
         renderer.renderChunkBuffer(world);
+        
         
         if (toggleDebugInformation) {
             renderer.renderChunkBorders(world);

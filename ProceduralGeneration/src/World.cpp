@@ -30,6 +30,14 @@ int World::createWorld() {
 
 }
 
+void World::emptyChunkBuffer() {
+	chunkBuffer.resize(chunkBufferSize);
+
+	for (int i = 0; i < chunkBufferSize; i++) {
+		chunkBuffer[i] = Chunk();
+	}
+}
+
 void World::saveWorld() {
 	std::ofstream file;
 	std::stringstream ss;
@@ -64,14 +72,7 @@ void World::loadWorld() {
 		loaded = true;
 	}
 
-	chunkBuffer.resize(chunkBufferSize);
-	
-	
-	for (int i = 0; i < chunkBufferSize; i++) {
-		chunkBuffer[i] = Chunk();
-	}
-
-
+	emptyChunkBuffer();
 
 	file.close();
 }

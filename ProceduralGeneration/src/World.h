@@ -21,9 +21,17 @@ public:
 	std::string name;
 
 	std::vector<Chunk> chunkBuffer;
+
+	World(){
+		emptyChunkBuffer();	
+	}
+
 	
 	//Tries to create new World. Returns 1 if failed.
 	int createWorld();
+
+	//Clears Chunk Buffer and refills it with fresh Chunks.
+	void emptyChunkBuffer();
 
 	// O------------------------------------------------------------------------------O
 	// | Saving-Functions                                                             |

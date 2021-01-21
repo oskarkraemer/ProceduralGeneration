@@ -46,18 +46,22 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 
 	//create world with name
 	else if (checkTemplate("createWorld", 1, &args, &std::vector<Types::Type> {Types::STRING})) {
+		player->savePlayer(world);
+
 		world->name = args[1];
 		world->createWorld();
 		world->loadWorld();
+		player->loadPlayer(world);
+
 	}
 
 	//load world with name
 	else if (checkTemplate("loadWorld", 1, &args, &std::vector<Types::Type> {Types::STRING})) {
+		player->savePlayer(world);
+
 		world->name = args[1];
 		world->loadWorld();
 		player->loadPlayer(world);
-
-		player->setPosition(player->position);
 
 	}
 	

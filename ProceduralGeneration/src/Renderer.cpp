@@ -4,7 +4,7 @@
 #include <iostream>
 
 void Renderer::renderChunkBuffer(World* world) {
-	for (int i = 0; i < chunkBufferSize; i++) {
+	for (int i = 0; i < Globals::chunkBufferSize; i++) {
 		window->draw(world->chunkBuffer[i].vertices);
 	}
 
@@ -32,24 +32,24 @@ sf::Color Renderer::getTileColor(uint8_t tileID) {
 }
 
 void Renderer::loadChunkVertices(Chunk* chunk) {
-	int Xoff = chunk->x * (chunk_size * tile_size);
-	int Yoff = chunk->y * (chunk_size * tile_size);
+	int Xoff = chunk->x * (Globals::chunk_size * Globals::tile_size);
+	int Yoff = chunk->y * (Globals::chunk_size * Globals::tile_size);
 
 	
 	chunk->vertices.setPrimitiveType(sf::Quads);
-	chunk->vertices.resize(chunk_size * chunk_size * 4);
+	chunk->vertices.resize(Globals::chunk_size * Globals::chunk_size * 4);
 
 
-	for (int y = 0; y < chunk_size; y++) {
-		for (int x = 0; x < chunk_size; x++) {
-			sf::Vertex* quad = &chunk->vertices[(y * chunk_size + x) * 4];
-			sf::Color color = getTileColor(chunk->tileTypes[y * chunk_size + x]);
+	for (int y = 0; y < Globals::chunk_size; y++) {
+		for (int x = 0; x < Globals::chunk_size; x++) {
+			sf::Vertex* quad = &chunk->vertices[(y * Globals::chunk_size + x) * 4];
+			sf::Color color = getTileColor(chunk->tileTypes[y * Globals::chunk_size + x]);
 
 
-			quad[0].position = sf::Vector2f(x * tile_size + Xoff, y * tile_size + Yoff);
-			quad[1].position = sf::Vector2f((x + 1) * tile_size + Xoff, y * tile_size + Yoff);
-			quad[2].position = sf::Vector2f((x + 1) * tile_size + Xoff, (y + 1) * tile_size + Yoff);
-			quad[3].position = sf::Vector2f(x * tile_size + Xoff, (y + 1) * tile_size + Yoff);
+			quad[0].position = sf::Vector2f(x * Globals::tile_size + Xoff, y * Globals::tile_size + Yoff);
+			quad[1].position = sf::Vector2f((x + 1) * Globals::tile_size + Xoff, y * Globals::tile_size + Yoff);
+			quad[2].position = sf::Vector2f((x + 1) * Globals::tile_size + Xoff, (y + 1) * Globals::tile_size + Yoff);
+			quad[3].position = sf::Vector2f(x * Globals::tile_size + Xoff, (y + 1) * Globals::tile_size + Yoff);
 
 			quad[0].color = color;
 			quad[1].color = color;
@@ -71,14 +71,14 @@ void Renderer::renderPlayer(Player* player) {
 }
 
 void Renderer::renderChunkBorders(World* world) {
-	int chunkPixelSize = chunk_size * tile_size;
+	int chunkPixelSize = Globals::chunk_size * Globals::tile_size;
 
 	sf::RectangleShape rectangle(sf::Vector2f(chunkPixelSize, chunkPixelSize));
 	rectangle.setFillColor(sf::Color::Transparent);
 	rectangle.setOutlineColor(sf::Color::Red);
 	rectangle.setOutlineThickness(1);
 
-	for (int i = 0; i < chunkBufferSize; i++) {
+	for (int i = 0; i < Globals::chunkBufferSize; i++) {
 		rectangle.setPosition(world->chunkBuffer[i].x * chunkPixelSize, world->chunkBuffer[i].y * chunkPixelSize);
 		window->draw(rectangle);
 	}
@@ -92,7 +92,7 @@ void Renderer::renderDebugInformation(Player* player ,FPS* fps) {
 				+ "FPS: " + std::to_string(fps->getFPS()) + "\n"
 				+ "X: " + std::to_string(player->position.x) + " Y: " + std::to_string(player->position.y) + "\n"
 				+ "Cx: " + std::to_string(player->chunkPosition.x) + " Cy: " + std::to_string(player->chunkPosition.y) + "\n"
-				+ "ChunkBuffer size: " + std::to_string(chunkBufferSize));
+				+ "ChunkBuffer size: " + std::to_string(Globals::chunkBufferSize));
 
 	text.setCharacterSize(20);
 	text.setFillColor(sf::Color::Black);

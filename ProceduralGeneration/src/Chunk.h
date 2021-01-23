@@ -18,7 +18,7 @@ public:
 	// Insertion operator
 	friend std::ostream& operator<<(std::ostream& os, const Chunk& s)
 	{
-		for (int i = 0; i < chunk_size * chunk_size; i++) {
+		for (int i = 0; i < Globals::chunk_size * Globals::chunk_size; i++) {
 			os << s.tileTypes[i];
 		}
 		
@@ -31,7 +31,7 @@ public:
 	// Extraction operator
 	friend std::istream& operator>>(std::istream& is, Chunk& s)
 	{
-		for (int i = 0; i < chunk_size*chunk_size; i++) {
+		for (int i = 0; i < Globals::chunk_size * Globals::chunk_size; i++) {
 			is >> s.tileTypes[i];
 		}
 

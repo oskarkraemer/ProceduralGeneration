@@ -19,9 +19,7 @@
 int main() {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
-    //- fix mouse offsetting when window dragged
-    //- add console
-    //- fix world loading and creating bug
+    //- clean up world saving and loading
 
     World* world = new World;
     //world->name = "pommes";
@@ -40,7 +38,7 @@ int main() {
     sf::RenderWindow window;
     
 
-    if (isFullscreen) {
+    if (Globals::isFullscreen) {
         window.create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProceduralGeneration", sf::Style::Fullscreen);
 
     }
@@ -74,7 +72,7 @@ int main() {
     //
 
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer)+ sizeof(player) + sizeof(chunkLoader) + sizeof(mouse) + sizeof(window);
-    uint16_t heapSize = chunkBufferSize * sizeof(Chunk);
+    uint16_t heapSize = Globals::chunkBufferSize * sizeof(Chunk);
 
     std::cout << "StackMemory used: " << stackSize << " | " << (float)stackSize / 1024 << "KB" << std::endl;
     std::cout << "HeapMemory used: " << heapSize <<" | " << (float)heapSize /1024 << "KB"<< std::endl;

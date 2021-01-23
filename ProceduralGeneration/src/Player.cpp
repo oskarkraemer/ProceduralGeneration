@@ -2,8 +2,8 @@
 
 void Player::setPosition(sf::Vector2f newPosition) {
 	position = newPosition;
-	chunkPosition.x = floor(position.x / (chunk_size * tile_size));
-	chunkPosition.y = floor(position.y / (chunk_size * tile_size));
+	chunkPosition.x = floor(position.x / (Globals::chunk_size * Globals::tile_size));
+	chunkPosition.y = floor(position.y / (Globals::chunk_size * Globals::tile_size));
 	view.setCenter(position);
 }
 
@@ -102,7 +102,7 @@ void Player::savePlayer(World* world) {
 	std::ofstream file;
 	std::stringstream ss;
 
-	ss << worldsFolderPath << world->name <<"/players/" << uuid << ".player";
+	ss << Globals::worldsFolderPath << world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 
@@ -132,7 +132,7 @@ void Player::loadPlayer(World* world) {
 
 	std::string line;
 
-	ss << worldsFolderPath << world->name <<"/players/" << uuid << ".player";
+	ss << Globals::worldsFolderPath << world->name <<"/players/" << uuid << ".player";
 
 	file.open(ss.str());
 

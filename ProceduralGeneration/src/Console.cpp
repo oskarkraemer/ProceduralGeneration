@@ -29,11 +29,11 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	//setFullscreen
 	else if (checkTemplate("setFullscreen", 1, &args, &std::vector<Types::Type> {Types::BOOL})) {
 		if (args[1] == "true") {
-			isFullscreen = true;
+			Globals::isFullscreen = true;
 			window->create(sf::VideoMode(sf::VideoMode::getDesktopMode().width, sf::VideoMode::getDesktopMode().height), "ProceduralGeneration", sf::Style::Fullscreen);
 		}
 		else if (args[1] == "false") {
-			isFullscreen = false;
+			Globals::isFullscreen = false;
 			window->create(sf::VideoMode(1920, 1080), "ProceduralGeneration");
 		}
 	}

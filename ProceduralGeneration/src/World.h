@@ -22,6 +22,7 @@ public:
 	std::string name;
 
 	std::vector<Chunk> chunkBuffer;
+	int seed = 0;
 
 	World(){
 		emptyChunkBuffer();	

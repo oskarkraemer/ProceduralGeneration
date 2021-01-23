@@ -163,7 +163,6 @@
     <ClCompile Include="src\Chunk.cpp" />
     <ClCompile Include="src\FPS.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\PerlinNoise.cpp" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\TerrainGeneration.cpp" />
     <ClCompile Include="src\World.cpp" />
@@ -171,6 +170,7 @@
   <ItemGroup>
     <ClInclude Include="src\ChunkLoader.h" />
     <ClInclude Include="src\Console.h" />
+    <ClInclude Include="src\FastNoiseLite.h" />
     <ClInclude Include="src\Game.h" />
     <ClInclude Include="src\Globals.h" />
     <ClInclude Include="src\logging\loguru.hpp" />
@@ -179,7 +179,6 @@
     <ClInclude Include="src\Player.h" />
     <ClInclude Include="src\Chunk.h" />
     <ClInclude Include="src\FPS.h" />
-    <ClInclude Include="src\PerlinNoise.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\TerrainGeneration.h" />
     <ClInclude Include="src\World.h" />

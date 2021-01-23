@@ -22,7 +22,7 @@ void ChunkLoader::loadChunksToBuffer(Player* player, bool existsInBufferCheck) {
             else {
 
                 world->chunkBuffer[cntr].x = x;  world->chunkBuffer[cntr].y = y;
-                terrainGenerator->generateChunk(&world->chunkBuffer[cntr], 0);
+                terrainGenerator->generateChunk(&world->chunkBuffer[cntr], world->seed);
                 renderer->loadChunkVertices(&world->chunkBuffer[cntr]);
 
                 saveChunkToFile(&world->chunkBuffer[cntr]);

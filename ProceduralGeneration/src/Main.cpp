@@ -3,6 +3,7 @@
 #include <iostream>
 #include <cmath>
 #include <thread>
+#include "logging/loguru.hpp"
 
 #include "TerrainGeneration.h"
 #include "world.h"
@@ -16,10 +17,13 @@
 #include "FPS.h"
 
 
-int main() {
+int main(int argc, char* argv[]) {
     //TO:DO
     //- fix perlin noise between chunks, it cuts off at the chunk borders
     //- clean up world saving and loading
+    loguru::init(argc, argv);
+    loguru::add_file("latest.log", loguru::Append, loguru::Verbosity_WARNING);
+
 
     World* world = new World;
     //world->name = "pommes";
@@ -74,8 +78,8 @@ int main() {
     uint16_t stackSize = sizeof(world) + sizeof(fps) + sizeof(tr) + sizeof(renderer)+ sizeof(player) + sizeof(chunkLoader) + sizeof(mouse) + sizeof(window);
     uint16_t heapSize = Globals::chunkBufferSize * sizeof(Chunk);
 
-    std::cout << "StackMemory used: " << stackSize << " | " << (float)stackSize / 1024 << "KB" << std::endl;
-    std::cout << "HeapMemory used: " << heapSize <<" | " << (float)heapSize /1024 << "KB"<< std::endl;
+    LOG_F(INFO, "StackMemory used: %d | %fKB", stackSize, (float)stackSize / 1024);
+    LOG_F(INFO, "StackMemory used: %d | %fKB", heapSize, (float)heapSize / 1024);
 
     //
     // [-----------------]

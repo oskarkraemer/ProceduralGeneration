@@ -156,6 +156,7 @@
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Globals.cpp" />
     <ClCompile Include="src\ChunkLoader.cpp" />
+    <ClCompile Include="src\logging\loguru.cpp" />
     <ClCompile Include="src\Mouse.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Chunk.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="src\ChunkLoader.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Globals.h" />
+    <ClInclude Include="src\logging\loguru.hpp" />
     <ClInclude Include="src\Mouse.h" />
     <ClInclude Include="src\picosha2.h" />
     <ClInclude Include="src\Player.h" />

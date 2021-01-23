@@ -63,7 +63,7 @@ void World::loadWorld() {
 	file.open(ss.str());
 
 	if (!file.good()) {
-		std::cout << "File opening failed!" << "\n";
+		LOG_F(WARNING, "World save file could not be loaded!");
 	}
 	else {
 		//Load world name

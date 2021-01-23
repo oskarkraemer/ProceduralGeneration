@@ -5,6 +5,7 @@
 #include <fstream>
 #include <sstream>
 #include <windows.h>
+#include "logging/loguru.hpp"
 
 #include "Globals.h"
 

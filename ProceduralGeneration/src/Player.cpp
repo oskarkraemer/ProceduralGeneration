@@ -73,7 +73,6 @@ int Player::removeFromInventory(int tileIndex, int amount) {
 		}
 	}
 
-	std::cout << "[0] " << inventory[0][0] << " " << inventory[0][1] << "\n";
 
 	return amount;
 }
@@ -140,7 +139,7 @@ void Player::loadPlayer(World* world) {
 	clearInventory();
 
 	if (!file.good()) {
-		std::cout << "File opening failed!" << "\n";
+		LOG_F(WARNING, "Player save file could not be loaded!");
 	}
 	else {
 		//Load position Vector

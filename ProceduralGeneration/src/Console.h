@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <vector>
+#include "logging/loguru.hpp"
 
 #include "Player.h"
 #include "World.h"

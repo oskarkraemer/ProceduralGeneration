@@ -17,7 +17,7 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 		}
 	} while (iss);
 
-	std::cout << "[Command]: " << string << "\n";
+	LOG_F(INFO, "[Command]: %s", string.c_str());
 
 	//Interpret args
 
@@ -73,6 +73,11 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	//teleport player to coordinates
 	else if (checkTemplate("tp", 2, &args, &std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL})) {
 		player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
+	}
+
+	//list all worlds in worlds folder
+	else if (checkTemplate("listWorlds", 0, &args)) {
+
 	}
 
 	return 0;

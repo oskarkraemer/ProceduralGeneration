@@ -28,6 +28,9 @@
     <Filter Include="Console">
       <UniqueIdentifier>{73dca7b6-1588-4b7a-a50e-486fefe6fa79}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Logging">
+      <UniqueIdentifier>{829da48f-e4e0-496b-835e-07d8a6063d8b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\FPS.cpp">
@@ -66,6 +69,9 @@
     <ClCompile Include="src\Console.cpp">
       <Filter>Console</Filter>
     </ClCompile>
+    <ClCompile Include="src\logging\loguru.cpp">
+      <Filter>Logging</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -103,6 +109,9 @@
     </ClInclude>
     <ClInclude Include="src\Console.h">
       <Filter>Console</Filter>
+    </ClInclude>
+    <ClInclude Include="src\logging\loguru.hpp">
+      <Filter>Logging</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

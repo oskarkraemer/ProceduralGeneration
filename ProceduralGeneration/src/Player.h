@@ -4,6 +4,7 @@
 #include "World.h"
 #include "picosha2.h"
 #include <stdint.h>
+#include "logging/loguru.hpp"
 
 #include <iostream>
 #include <fstream>

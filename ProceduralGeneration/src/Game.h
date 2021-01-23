@@ -48,6 +48,7 @@ private:
 	
 
 	//Private funtions
+	void initLogging();
 	void initVariables();
 	void initWindow();
 	void initGameObjects();

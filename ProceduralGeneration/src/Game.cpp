@@ -1,5 +1,11 @@
 #include "Game.h"
 
+void Game::initLogging()
+{
+    
+    loguru::add_file("latest.log", loguru::Append, loguru::Verbosity_WARNING);
+}
+
 //Private functions
 void Game::initVariables()
 {
@@ -35,6 +41,7 @@ void Game::initGameObjects()
 
 //Constructors / Destructors
 Game::Game() {
+    this->initLogging();
     this->initVariables();
     this->initWindow();
     this->initGameObjects();

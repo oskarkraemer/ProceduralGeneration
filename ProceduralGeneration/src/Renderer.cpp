@@ -119,14 +119,23 @@ void Renderer::renderConsole(Console* console) {
 }
 
 void Renderer::renderHotbar(Player* player) {
+	//Create Rectangles for hotbar, item and selected indicator
 	sf::RectangleShape hotbarRectangle(sf::Vector2f(64, 64));
 	sf::RectangleShape itemRectangle(sf::Vector2f(48, 48));
 	sf::RectangleShape selectedRectangle(sf::Vector2f(64, 64));
 
+	//Create sf::Text for amount indicator
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(20);
+	text.setFillColor(sf::Color::White);
+
+	//Configuring hotbarRectangle
 	hotbarRectangle.setFillColor(sf::Color(0, 0, 0, 128));
 	hotbarRectangle.setOutlineThickness(1);
 	hotbarRectangle.setOutlineColor(sf::Color::Black);
 
+	//If name == PizzaHannes, golden selctedRect
 	if (player->name == "PizzaHannes") {
 		selectedRectangle.setOutlineColor(sf::Color(218, 165, 32));
 	}
@@ -137,19 +146,26 @@ void Renderer::renderHotbar(Player* player) {
 	selectedRectangle.setOutlineThickness(2);
 	selectedRectangle.setFillColor(sf::Color::Transparent);
 
+	//Draw Hotbar
 	for (int i = 0; i < 8; i++) {
 		hotbarRectangle.setPosition(window->getSize().x / 2 -320 + (i*74), window->getSize().y - 74);
 		window->draw(hotbarRectangle);
 
+		//Draw selected indicator
 		if (player->selectedItem == i) {
 			selectedRectangle.setPosition(window->getSize().x / 2 - 320 + (i * 74), window->getSize().y - 74);
 			window->draw(selectedRectangle);
 		}
 
+		//Draw item
 		if ((int)player->inventory[i][0] != 0) {
 			itemRectangle.setFillColor(getTileColor((int)player->inventory[i][0]));
 			itemRectangle.setPosition(window->getSize().x / 2 - 320 + (i * 74) + 8, window->getSize().y - 74 + 8);
 			window->draw(itemRectangle);
+
+			text.setString(std::to_string(player->inventory[i][1]));
+			text.setPosition(window->getSize().x / 2 - 320 + (i * 74) + 8, window->getSize().y - 74 + 8);
+			window->draw(text);
 		}
 	}
 

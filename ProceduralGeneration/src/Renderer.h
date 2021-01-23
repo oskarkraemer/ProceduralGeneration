@@ -5,7 +5,9 @@
 #include "FPS.h"
 #include "World.h"
 #include "Console.h"
-
+#include <string>
+#include <iostream>
+#include "logging/loguru.hpp"
 
 
 class Renderer
@@ -25,6 +27,6 @@ public:
 	void renderConsole(Console* console);
 	void renderHotbar(Player* player);
 
-	Renderer(sf::RenderWindow* cWindow) { window = cWindow; }
+	Renderer(sf::RenderWindow* cWindow);
 };
 

@@ -1,5 +1,28 @@
 #include "Player.h"
 
+void Player::updateMovement(sf::Time deltaTime)
+{
+	float tempSpeed = deltaTime.asSeconds() * this->movSpeed;
+	
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
+		//std::cout << "Pressed W" << player.position.y << " "<<player.chunkPosition.y<< std::endl;
+		this->setPosition(sf::Vector2f(this->position.x, this->position.y - tempSpeed));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+		//std::cout << "Pressed D" << player.position.x << " " << player.chunkPosition.x << std::endl;
+		this->setPosition(sf::Vector2f(this->position.x + tempSpeed, this->position.y));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+		//std::cout << "Pressed A" << player.position.x << " " << player.chunkPosition.x << std::endl;
+		this->setPosition(sf::Vector2f(this->position.x - tempSpeed, this->position.y));
+	}
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
+		//std::cout << "Pressed S" << player.position.y << " " << player.chunkPosition.y << std::endl;
+		this->setPosition(sf::Vector2f(this->position.x, this->position.y + tempSpeed));
+	}
+}
+
 void Player::setPosition(sf::Vector2f newPosition) {
 	position = newPosition;
 	chunkPosition.x = floor(position.x / (Globals::chunk_size * Globals::tile_size));
@@ -138,6 +161,9 @@ void Player::loadPlayer(World* world) {
 	//Clear Inventory
 	clearInventory();
 
+	//Reset position
+	setPosition({ 0, 0 });
+
 	if (!file.good()) {
 		LOG_F(WARNING, "Player save file could not be loaded!");
 	}
@@ -146,6 +172,7 @@ void Player::loadPlayer(World* world) {
 		file >> position.x;
 		file >> position.y;
 		setPosition(position);
+		
 		
 		//Load inventory
 
@@ -161,6 +188,7 @@ void Player::loadPlayer(World* world) {
 		file >> playTime;
 
 	}
+	this->oldChunkPosition.x++;
 
 	file.close();
 }

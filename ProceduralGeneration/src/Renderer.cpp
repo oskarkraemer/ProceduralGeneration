@@ -1,7 +1,6 @@
 #include "Renderer.h"
 #include "Globals.h"
-#include <string>
-#include <iostream>
+
 
 void Renderer::renderChunkBuffer(World* world) {
 	for (int i = 0; i < Globals::chunkBufferSize; i++) {
@@ -155,4 +154,13 @@ void Renderer::renderHotbar(Player* player) {
 	}
 
 	
+}
+
+//Constructor
+Renderer::Renderer(sf::RenderWindow* cWindow)
+{
+	this->window = cWindow;
+	if (!font.loadFromFile("./res/Roboto-Regular.ttf")) {
+		LOG_F(ERROR, "Font could not be loaded!");
+	}
 }

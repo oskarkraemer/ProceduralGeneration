@@ -34,6 +34,9 @@ public:
 	uint32_t playTime = 0;
 	std::chrono::high_resolution_clock::time_point t_start = std::chrono::high_resolution_clock::now();
 
+	//Movement variables
+	int movSpeed = 800;
+
 
 	Player(std::string Cname) {
 		name = Cname;
@@ -66,6 +69,7 @@ public:
 	// | Position-Functions                                                           |
 	// O------------------------------------------------------------------------------O
 
+	void updateMovement(sf::Time deltaTime);
 	void setPosition(sf::Vector2f newPosition);
 
 	// O------------------------------------------------------------------------------O

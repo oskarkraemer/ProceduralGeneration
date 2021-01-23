@@ -72,6 +72,9 @@
     <ClCompile Include="src\logging\loguru.cpp">
       <Filter>Logging</Filter>
     </ClCompile>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -112,6 +115,9 @@
     </ClInclude>
     <ClInclude Include="src\logging\loguru.hpp">
       <Filter>Logging</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Game.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

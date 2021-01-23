@@ -72,7 +72,7 @@ void Mouse::updateBlockPlace() {
                                 if (world->chunkBuffer[i].tileTypes[y * Globals::chunk_size + x] == 0) {
 
                                     world->chunkBuffer[i].tileTypes[y * Globals::chunk_size + x] = player->inventory[player->selectedItem][0];
-                                    player->removeFromInventory(player->inventory[player->selectedItem][0], 1);
+                                    player->removeFromInventoryAtIndex(player->selectedItem, 1);
 
                                     renderer->loadChunkVertices(&world->chunkBuffer[i]);
 

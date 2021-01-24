@@ -23,6 +23,13 @@ int World::createWorld() {
 	stemp = std::wstring(path.begin(), path.end());
 	sw = stemp.c_str();
 	CreateDirectory(sw, NULL);
+	
+	//Set world seed
+	std::random_device rd;
+	std::mt19937 gen(rd());
+
+	std::uniform_int_distribution<unsigned int> distr(0, std::numeric_limits<unsigned int>::max());
+	seed = distr(gen);
 
 	//Save World class
 	saveWorld();
@@ -49,6 +56,9 @@ void World::saveWorld() {
 	//Save world name
 	file << name << '\n';
 
+	//Save world seed
+	file << seed << '\n';
+
 	file.close();
 }
 
@@ -68,6 +78,9 @@ void World::loadWorld() {
 	else {
 		//Load world name
 		file >> name;
+
+		//Load world seed
+		file >> seed;
 
 		loaded = true;
 	}

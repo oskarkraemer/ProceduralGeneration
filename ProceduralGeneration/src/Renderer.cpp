@@ -12,20 +12,20 @@ void Renderer::renderChunkBuffer(World* world) {
 sf::Color Renderer::getTileColor(uint8_t tileID) {
 
 	switch ((int)tileID) {
-		case 0:
+		case Globals::Tile::AIR:
 			//Air
 			return sf::Color(sf::Color(26, 13, 0));
-		case 1:
+		case Globals::Tile::GRASS:
 			//Grass
 			return sf::Color(sf::Color(54, 110, 71));
-		case 2:
+		case Globals::Tile::STONE:
 			//Stone
 			return sf::Color(sf::Color(51, 51, 51));
-		case 3:
-			//Blue
+		case Globals::Tile::WATER:
+			//Water
 			return sf::Color(sf::Color(54, 68, 110));
-		case 4:
-			//Yellow
+		case Globals::Tile::SAND:
+			//Sand
 			return sf::Color(sf::Color(139, 140, 52));
 	}
 }

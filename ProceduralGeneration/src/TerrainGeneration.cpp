@@ -2,7 +2,7 @@
 #include "Globals.h"
 #include <iostream>
 
-float TerrainGeneration::getTile(int x, int y, sf::Vector2f chunkOffset, int seed)
+int TerrainGeneration::getTile(int x, int y, sf::Vector2f chunkOffset, int seed)
 {
 
 
@@ -24,16 +24,16 @@ float TerrainGeneration::getTile(int x, int y, sf::Vector2f chunkOffset, int see
 
 	//map different blocks to perlin value
 	if (noise_value < 0.3) {
-		return 3; // WATER
+		return Globals::Tile::WATER; // WATER
 	} 
-	else if (noise_value < 0.35) {
-		return 4; // SAND
+	else if (noise_value < 0.4) {
+		return Globals::Tile::SAND; // SAND
 	}
-	else if (noise_value < 0.7) {
-		return 1; // GRASS
+	else if (noise_value < 0.8) {
+		return Globals::Tile::GRASS; // GRASS
 	}
 	else {
-		return 2; // STONE
+		return Globals::Tile::STONE; // STONE
 	}
 
 

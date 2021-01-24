@@ -6,6 +6,9 @@
 #include <sstream>
 #include <windows.h>
 #include "logging/loguru.hpp"
+#include <limits>
+#include <iostream>
+#include <random>
 
 #include "Globals.h"
 
@@ -22,7 +25,7 @@ public:
 	std::string name;
 
 	std::vector<Chunk> chunkBuffer;
-	int seed = 0;
+	unsigned int seed = 0;
 
 	World(){
 		emptyChunkBuffer();	

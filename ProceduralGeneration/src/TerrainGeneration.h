@@ -9,7 +9,7 @@ class TerrainGeneration
 {
 
 public:
-	float getTile(int x, int y, sf::Vector2f chunkOffset, int seed);
+	int getTile(int x, int y, sf::Vector2f chunkOffset, int seed);
 	void generateChunk(Chunk* chunk, int seed);
 
 };

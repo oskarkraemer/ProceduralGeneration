@@ -1,6 +1,5 @@
 #pragma once
 
-#include "PerlinNoise.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>

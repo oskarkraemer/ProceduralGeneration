@@ -79,58 +79,66 @@ void Game::pollEvents()
     while (this->window->pollEvent(ev))
     {
         switch (this->ev.type) {
-        case sf::Event::Closed:
-            this->player->savePlayer(world);
-            this->window->close();
-            break;
+            case sf::Event::Closed:
+                this->player->savePlayer(world);
+                this->window->close();
+                break;
 
-        case sf::Event::TextEntered:
-            if (toggleConsole) {
-                if (this->ev.text.unicode == '\b') {
-                    if (console.input.getSize() > 0) {
-                        console.input.erase(console.input.getSize() - 1, 1);
+            case sf::Event::TextEntered:
+                if (toggleConsole) {
+                    if (this->ev.text.unicode == '\b') {
+                        if (console.input.getSize() > 0) {
+                            console.input.erase(console.input.getSize() - 1, 1);
+                        }
+                    }
+                    else if (this->ev.text.unicode > 30 && (this->ev.text.unicode < 127 || this->ev.text.unicode > 159)) {
+                        console.input += this->ev.text.unicode;
+                    }
+
+                }
+                break;
+
+
+            case sf::Event::KeyReleased:
+                switch (this->ev.key.code) {
+                    case sf::Keyboard::F3:
+                        toggleDebugInformation = !toggleDebugInformation;
+                        break;
+                    case sf::Keyboard::T:
+                        toggleConsole = true;
+                        break;
+                    case sf::Keyboard::Escape:
+                        toggleConsole = false;
+                        console.clear();
+                        break;
+                    case sf::Keyboard::Enter:
+                        if (toggleConsole) {
+                            toggleConsole = false;
+                            console.clear();
+                        }
+                        break;
+                }
+                break;
+
+            case sf::Event::KeyPressed:
+                if (this->ev.key.code == sf::Keyboard::V) {
+                    if (this->ev.key.control) {
+                        console.input = sf::Clipboard::getString();
                     }
                 }
-                else if (this->ev.text.unicode < 128 && this->ev.text.unicode != 27) {
-                    console.input += this->ev.text.unicode;
+
+
+            case sf::Event::MouseWheelMoved:
+                if (this->player->selectedItem == 0 && this->ev.mouseWheel.delta == 1) {
+
                 }
+                else if (this->player->selectedItem == 7 && this->ev.mouseWheel.delta == -1) {
 
-            }
-            break;
-
-
-        case sf::Event::KeyReleased:
-            if (this->ev.key.code == sf::Keyboard::F3) {
-                toggleDebugInformation = !toggleDebugInformation;
-            }
-
-            else if (this->ev.key.code == sf::Keyboard::T) {
-                toggleConsole = true;
-            }
-
-            else if (this->ev.key.code == sf::Keyboard::Escape) {
-                toggleConsole = false;
-                console.clear();
-            }
-            else if (this->ev.key.code == sf::Keyboard::Enter && toggleConsole) {
-                console.processInput(this->player, this->window, this->world);
-                toggleConsole = false;
-                console.clear();
-            }
-            break;
-
-
-        case sf::Event::MouseWheelMoved:
-            if (this->player->selectedItem == 0 && this->ev.mouseWheel.delta == 1) {
-
-            }
-            else if (this->player->selectedItem == 7 && this->ev.mouseWheel.delta == -1) {
-
-            }
-            else {
-                this->player->selectedItem += this->ev.mouseWheel.delta * -1;
-            }
-            break;
+                }
+                else {
+                    this->player->selectedItem += this->ev.mouseWheel.delta * -1;
+                }
+                break;
         }
 
     }

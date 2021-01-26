@@ -130,7 +130,7 @@ Project Link: [https://github.com/oskarkraemer/ProceduralGeneration](https://git
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [stars-shield]: https://img.shields.io/github/stars/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge
-[stars-url]: https://github.com/oskarkraemer/ProceduralGeneration
+[stars-url]: https://github.com/oskarkraemer/ProceduralGeneration/stargazers
 [issues-shield]: https://img.shields.io/github/issues/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge
 [issues-url]: https://github.com/oskarkraemer/ProceduralGeneration/issues
 [license-shield]: https://img.shields.io/github/license/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge

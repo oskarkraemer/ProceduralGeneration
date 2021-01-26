@@ -72,7 +72,17 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 
 	//teleport player to coordinates
 	else if (checkTemplate("tp", 2, &args, &std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL})) {
-		player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
+		try {
+			if (std::stoi(args[1]) < std::numeric_limits<int>::max() && std::stoi(args[1]) > std::numeric_limits<int>::min()) {
+				if (std::stoi(args[2]) < std::numeric_limits<int>::max() && std::stoi(args[2]) > std::numeric_limits<int>::min()) {
+					player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
+				}
+			}	
+		}
+		catch (const std::out_of_range& e) {
+
+		}
+
 	}
 
 	//list all worlds in worlds folder
@@ -81,6 +91,16 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	}
 
 	return 0;
+}
+
+bool Console::isInteger(const std::string& s)
+{
+	if (s.empty() || ((!isdigit(s[0])) && (s[0] != '-') && (s[0] != '+'))) return false;
+
+	char* p;
+	strtol(s.c_str(), &p, 10);
+
+	return (*p == 0);
 }
 
 bool Console::checkTemplate(const char* command, int argument_count, std::vector<std::string>* args, std::vector<Types::Type>* types) {
@@ -107,7 +127,7 @@ bool Console::checkTemplate(const char* command, int argument_count, std::vector
 
 				//Check if type is NUMERICAL
 				if (types->at(i) == Types::NUMERICAL) {
-					if(args->at(i + 1).find_first_not_of("0123456789-") != std::string::npos) {
+					if (!isInteger(args->at(i+1))) {
 						goto failed;
 					}
 				}

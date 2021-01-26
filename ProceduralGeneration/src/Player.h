@@ -20,8 +20,8 @@ public:
 
 	//Position data
 	sf::Vector2f position{0,0};
-	sf::Vector2f chunkPosition = {0, 0};
-	sf::Vector2f oldChunkPosition = { 1, 1 };
+	sf::Vector2i chunkPosition = {0, 0};
+	sf::Vector2i oldChunkPosition = { 1, 1 };
 
 	sf::View view;
 

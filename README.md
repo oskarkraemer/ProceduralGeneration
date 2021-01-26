@@ -16,9 +16,9 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 
-![Stargazers][stars-shield]
+[![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-![GNU GPLv3 License][license-shield]
+[![GNU GPLv3 License][license-shield]][license-url]
 
 
 <!-- PROJECT LOGO -->
@@ -130,6 +130,7 @@ Project Link: [https://github.com/oskarkraemer/ProceduralGeneration](https://git
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [stars-shield]: https://img.shields.io/github/stars/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge
+[stars-url]: https://github.com/oskarkraemer/ProceduralGeneration
 [issues-shield]: https://img.shields.io/github/issues/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge
 [issues-url]: https://github.com/oskarkraemer/ProceduralGeneration/issues
 [license-shield]: https://img.shields.io/github/license/oskarkraemer/ProceduralGeneration.svg?style=for-the-badge

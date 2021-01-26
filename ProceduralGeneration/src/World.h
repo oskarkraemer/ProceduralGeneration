@@ -16,9 +16,6 @@ class World
 {
 
 public:
-	//limits in chunks
-	int width = 50;
-	int height = 50;
 
 	bool loaded = false;
 

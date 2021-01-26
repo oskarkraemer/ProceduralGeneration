@@ -7,5 +7,8 @@ namespace Globals {
 	uint8_t load_radius = 1;
 	int chunkBufferSize = 4 * load_radius + 4 * (load_radius * load_radius) + 1;
 	bool isFullscreen = false;
+	int worldSize = 4882;
 	std::string worldsFolderPath = "./worlds/";
+
+
 }

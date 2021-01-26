@@ -72,9 +72,11 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 
 	//teleport player to coordinates
 	else if (checkTemplate("tp", 2, &args, &std::vector<Types::Type> {Types::NUMERICAL, Types::NUMERICAL})) {
+		int maxPixelSize = Globals::worldSize * Globals::chunk_size * Globals::tile_size;
+
 		try {
-			if (std::stoi(args[1]) < std::numeric_limits<int>::max() && std::stoi(args[1]) > std::numeric_limits<int>::min()) {
-				if (std::stoi(args[2]) < std::numeric_limits<int>::max() && std::stoi(args[2]) > std::numeric_limits<int>::min()) {
+			if (std::stoi(args[1]) < maxPixelSize && std::stoi(args[1]) > -maxPixelSize) {
+				if (std::stoi(args[2]) < maxPixelSize && std::stoi(args[2]) > -maxPixelSize) {
 					player->setPosition(sf::Vector2f(std::stoi(args[1]), std::stoi(args[2])));
 				}
 			}	

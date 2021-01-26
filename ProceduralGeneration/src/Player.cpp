@@ -24,10 +24,17 @@ void Player::updateMovement(sf::Time deltaTime)
 }
 
 void Player::setPosition(sf::Vector2f newPosition) {
-	position = newPosition;
-	chunkPosition.x = floor(position.x / (Globals::chunk_size * Globals::tile_size));
-	chunkPosition.y = floor(position.y / (Globals::chunk_size * Globals::tile_size));
-	view.setCenter(position);
+	int maxPixelSize = Globals::worldSize * Globals::chunk_size * Globals::tile_size;
+
+	if (newPosition.x > -maxPixelSize && newPosition.x < maxPixelSize) {
+		if (newPosition.y > -maxPixelSize && newPosition.y < maxPixelSize) {
+			position = newPosition;
+			chunkPosition.x = floor(position.x / (Globals::chunk_size * Globals::tile_size));
+			chunkPosition.y = floor(position.y / (Globals::chunk_size * Globals::tile_size));
+			view.setCenter(position);
+		}
+	}
+
 }
 
 int Player::addToInventory(int tileIndex, int amount) {

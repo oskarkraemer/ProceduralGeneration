@@ -21,6 +21,9 @@ namespace Globals {
 	//path to the worlds folder
 	extern std::string worldsFolderPath;
 
+	//world limit in chunks
+	extern int worldSize;
+
 	//tiles enum
 	extern enum Tile {
 		AIR, GRASS, STONE, WATER, SAND

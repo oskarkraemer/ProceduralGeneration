@@ -107,7 +107,7 @@ bool Console::checkTemplate(const char* command, int argument_count, std::vector
 
 				//Check if type is NUMERICAL
 				if (types->at(i) == Types::NUMERICAL) {
-					if(args->at(i + 1).find_first_not_of("0123456789") != std::string::npos) {
+					if(args->at(i + 1).find_first_not_of("0123456789-") != std::string::npos) {
 						goto failed;
 					}
 				}

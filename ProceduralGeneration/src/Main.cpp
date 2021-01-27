@@ -5,7 +5,7 @@ int main(int argc, char* argv[]) {
     //TO:DO
     //- clean up world saving and loading
     //- add console output textfield
-    //- remove newline in console
+    //- limt console input length
 
 
     Game game;

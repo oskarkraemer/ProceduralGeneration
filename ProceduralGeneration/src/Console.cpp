@@ -4,6 +4,7 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 	//SPLIT ARGUMENTS
 	
 	std::string string = input.toAnsiString();
+
 	std::istringstream iss(string);
 
 	std::vector<std::string> args;
@@ -16,6 +17,9 @@ int Console::processInput(Player* player, sf::RenderWindow* window, World* world
 			args.push_back(sub);
 		}
 	} while (iss);
+
+	
+	
 
 	LOG_F(INFO, "[Command]: %s", string.c_str());
 

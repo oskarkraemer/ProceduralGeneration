@@ -113,6 +113,7 @@ void Game::pollEvents()
                         break;
                     case sf::Keyboard::Enter:
                         if (toggleConsole) {
+                            console.processInput(player, window, world);
                             toggleConsole = false;
                             console.clear();
                         }
@@ -123,9 +124,15 @@ void Game::pollEvents()
             case sf::Event::KeyPressed:
                 if (this->ev.key.code == sf::Keyboard::V) {
                     if (this->ev.key.control) {
-                        console.input = sf::Clipboard::getString();
+                        std::string string = sf::Clipboard::getString();
+                        for (int i = 0; i < string.size(); i++) {
+                            string.erase(std::remove(string.begin(), string.end(), '\n'), string.end());
+                        }
+
+                        console.input = string;
                     }
                 }
+                break;
 
 
             case sf::Event::MouseWheelMoved:

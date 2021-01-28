@@ -199,20 +199,25 @@ void Renderer::renderInventory(Player* player)
 	window->draw(inventoryRectangle);
 
 	//Set frameRectangle
+	int n = 8;
+
 	for (int y = 0; y < (player->inventorySlotSize - 8) / 8; y++) {
-		for (int x = 0; x < (player->inventorySlotSize - 8) / 4; x++) {
+		for (int x = 0; x < player->inventorySlotSize / 5; x++) {
 			frameRectangle.setPosition(sf::Vector2f(anchor.x + x * 75, anchor.y + y * 75));
 			window->draw(frameRectangle);
 
-			if (player->inventory[y +1 * 8 + x][1] > 0) {
-				itemRectangle.setFillColor(getTileColor(player->inventory[y +1 * 8 + x][0]));
+			if (player->inventory[n][1] > 0) {
+				int index = player->inventory[n][0];
+				itemRectangle.setFillColor(getTileColor(index));
 				itemRectangle.setPosition(sf::Vector2f(anchor.x + x * 75 + 8, anchor.y + y * 75 + 8));
 				window->draw(itemRectangle);
 
-				text.setString(std::to_string(player->inventory[y +1 * 8 + x][1]));
+				text.setString(std::to_string(player->inventory[n][1]));
 				text.setPosition(sf::Vector2f(anchor.x + x * 75 + 8, anchor.y + y * 75 + 8));
 				window->draw(text);
 			}
+
+			n++;
 		}
 	}
 

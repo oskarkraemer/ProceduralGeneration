@@ -160,7 +160,7 @@ void Renderer::renderHotbar(Player* player) {
 
 		//Draw item
 		if ((int)player->inventory[i][0] != 0) {
-			itemRectangle.setFillColor(getTileColor((int)player->inventory[i][0]));
+			itemRectangle.setFillColor(getTileColor(player->inventory[i][0]));
 			itemRectangle.setPosition(window->getSize().x / 2 - 320 + (i * 74) + 8, window->getSize().y - 74 + 8);
 			window->draw(itemRectangle);
 
@@ -180,6 +180,12 @@ void Renderer::renderInventory(Player* player)
 	sf::RectangleShape frameRectangle(sf::Vector2f(64, 64));
 	sf::RectangleShape itemRectangle(sf::Vector2f(48, 48));
 
+	//Create sf::Text for amount indicator
+	sf::Text text;
+	text.setFont(font);
+	text.setCharacterSize(20);
+	text.setFillColor(sf::Color::White);
+
 	//Create anchor point
 	sf::Vector2f anchor = sf::Vector2f( window->getSize().x / 2 - (589 / 2), window->getSize().y / 2 - (289 / 2));
 
@@ -197,6 +203,16 @@ void Renderer::renderInventory(Player* player)
 		for (int x = 0; x < (player->inventorySlotSize - 8) / 4; x++) {
 			frameRectangle.setPosition(sf::Vector2f(anchor.x + x * 75, anchor.y + y * 75));
 			window->draw(frameRectangle);
+
+			if (player->inventory[y +1 * 8 + x][1] > 0) {
+				itemRectangle.setFillColor(getTileColor(player->inventory[y +1 * 8 + x][0]));
+				itemRectangle.setPosition(sf::Vector2f(anchor.x + x * 75 + 8, anchor.y + y * 75 + 8));
+				window->draw(itemRectangle);
+
+				text.setString(std::to_string(player->inventory[y +1 * 8 + x][1]));
+				text.setPosition(sf::Vector2f(anchor.x + x * 75 + 8, anchor.y + y * 75 + 8));
+				window->draw(text);
+			}
 		}
 	}
 

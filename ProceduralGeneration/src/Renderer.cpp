@@ -173,6 +173,39 @@ void Renderer::renderHotbar(Player* player) {
 	
 }
 
+void Renderer::renderInventory(Player* player)
+{
+	//Create Rectangles
+	sf::RectangleShape inventoryRectangle(sf::Vector2f(589, 289));
+	sf::RectangleShape frameRectangle(sf::Vector2f(64, 64));
+	sf::RectangleShape itemRectangle(sf::Vector2f(48, 48));
+
+	//Create anchor point
+	sf::Vector2f anchor = sf::Vector2f( window->getSize().x / 2 - (589 / 2), window->getSize().y / 2 - (289 / 2));
+
+	//Set inventoryBackground
+	inventoryRectangle.setPosition(anchor);
+	inventoryRectangle.setFillColor(sf::Color(64, 64, 64));
+
+	//Set frame
+	frameRectangle.setFillColor(sf::Color(32, 32, 32));
+
+	window->draw(inventoryRectangle);
+
+	//Set frameRectangle
+	for (int y = 0; y < (player->inventorySlotSize - 8) / 8; y++) {
+		for (int x = 0; x < (player->inventorySlotSize - 8) / 4; x++) {
+			frameRectangle.setPosition(sf::Vector2f(anchor.x + x * 75, anchor.y + y * 75));
+			window->draw(frameRectangle);
+		}
+	}
+
+	
+
+	
+	
+}
+
 //Constructor
 Renderer::Renderer(sf::RenderWindow* cWindow)
 {

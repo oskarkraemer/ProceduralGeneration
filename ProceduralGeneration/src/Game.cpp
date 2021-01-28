@@ -69,7 +69,7 @@ void Game::update()
     this->pollEvents();
 
     sf::Time delta =clock.restart();
-    if (!this->toggleConsole) {
+    if (!this->toggleConsole && !this->toggleInventory) {
         player->updateMovement(delta);
     }
 }
@@ -108,6 +108,11 @@ void Game::pollEvents()
                         break;
                     case sf::Keyboard::T:
                         toggleConsole = true;
+                        break;
+                    case sf::Keyboard::E:
+                        if (!toggleConsole) {
+                            toggleInventory = !toggleInventory;
+                        }
                         break;
                     case sf::Keyboard::Escape:
                         toggleConsole = false;
@@ -166,8 +171,10 @@ void Game::render()
     this->window->clear(sf::Color::Black);
     this->window->setView(this->player->view);
 
-    this->mouse->updateBlockBreak();
-    this->mouse->updateBlockPlace();
+    if (!this->toggleInventory) {
+        this->mouse->updateBlockBreak();
+        this->mouse->updateBlockPlace();
+    }
 
     if (this->player->chunkPosition.x != this->player->oldChunkPosition.x || this->player->chunkPosition.y != this->player->oldChunkPosition.y) {
 
@@ -188,13 +195,19 @@ void Game::render()
     }
     this->renderer->renderPlayer(this->player);
 
-    this->mouse->updateHighlighting(this->window);
+    if (!this->toggleInventory) {
+        this->mouse->updateHighlighting(this->window);
+    }
 
     //Render GUI
     this->window->setView(this->window->getDefaultView());
 
     if (this->toggleDebugInformation) {
         renderer->renderDebugInformation(this->player, &this->fps, &this->console);
+    }
+
+    if (this->toggleInventory) {
+        this->renderer->renderInventory(this->player);
     }
 
     this->renderer->renderHotbar(this->player);

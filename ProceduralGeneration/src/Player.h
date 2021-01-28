@@ -26,8 +26,8 @@ public:
 	sf::View view;
 
 	//Inventory data
-	int inventory[32][2] = { 0 };
-	int inventorySlotSize = 32;
+	int inventory[40][2] = { 0 };
+	int inventorySlotSize = 40;
 	int selectedItem = 0;
 
 	//Playtime data

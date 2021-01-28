@@ -26,6 +26,7 @@ public:
 	void renderDebugInformation(Player* player, FPS* fps, Console* console);
 	void renderConsole(Console* console);
 	void renderHotbar(Player* player);
+	void renderInventory(Player* player);
 
 	Renderer(sf::RenderWindow* cWindow);
 };

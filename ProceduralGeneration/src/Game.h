@@ -44,6 +44,7 @@ private:
 	//Others
 	bool toggleDebugInformation = false;
 	bool toggleConsole = false;
+	bool toggleInventory = false;
 	
 
 	//Private funtions

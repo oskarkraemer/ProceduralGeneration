@@ -92,7 +92,9 @@ void Game::pollEvents()
                         }
                     }
                     else if (this->ev.text.unicode > 30 && (this->ev.text.unicode < 127 || this->ev.text.unicode > 159)) {
-                        console.input += this->ev.text.unicode;
+                        if (console.input.getSize() < console.maxInputSize) {
+                            console.input += this->ev.text.unicode;
+                        }
                     }
 
                 }
@@ -125,9 +127,12 @@ void Game::pollEvents()
                 if (this->ev.key.code == sf::Keyboard::V) {
                     if (this->ev.key.control) {
                         std::string string = sf::Clipboard::getString();
-                        for (int i = 0; i < string.size(); i++) {
-                            string.erase(std::remove(string.begin(), string.end(), '\n'), string.end());
+                        if (string.size() > console.maxInputSize) {
+                            string.erase(console.maxInputSize, std::string::npos);
+                            
                         }
+
+                        string.erase(std::remove(string.begin(), string.end(), '\n'), string.end());
 
                         console.input = string;
                     }
@@ -189,7 +194,7 @@ void Game::render()
     this->window->setView(this->window->getDefaultView());
 
     if (this->toggleDebugInformation) {
-        renderer->renderDebugInformation(this->player, &this->fps);
+        renderer->renderDebugInformation(this->player, &this->fps, &this->console);
     }
 
     this->renderer->renderHotbar(this->player);

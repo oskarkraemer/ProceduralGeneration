@@ -20,6 +20,9 @@ class Console
 public:
 	sf::String input;
 
+	//Max Input size in characters
+	int maxInputSize = 145;
+
 	//Procceses Input and returns 1 when unsucsessfull
 	int processInput(Player* player, sf::RenderWindow* window, World* world);
 

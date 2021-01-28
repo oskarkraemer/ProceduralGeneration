@@ -23,7 +23,7 @@ public:
 
 	void renderPlayer(Player* player);
 	void renderChunkBorders(World* world);
-	void renderDebugInformation(Player* player, FPS* fps);
+	void renderDebugInformation(Player* player, FPS* fps, Console* console);
 	void renderConsole(Console* console);
 	void renderHotbar(Player* player);
 

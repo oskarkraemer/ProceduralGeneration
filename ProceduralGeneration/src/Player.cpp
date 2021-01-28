@@ -43,7 +43,7 @@ int Player::addToInventory(int tileIndex, int amount) {
 
 	for (int i = 0; i < inventorySlotSize; i++) {
 		if (inventory[i][0] == tileIndex && inventory[i][1] < 255) {
-			while (inventory[i][1] <= 255 && amount != 0) {
+			while (inventory[i][1] < 255 && amount != 0) {
 				inventory[i][1]++;
 				amount--;
 
@@ -64,7 +64,7 @@ int Player::addToInventory(int tileIndex, int amount) {
 
 		inventory[nextFreeSpace][0] = tileIndex;
 
-		while (inventory[nextFreeSpace][1] <= 255 && amount != 0) {
+		while (inventory[nextFreeSpace][1] < 255 && amount != 0) {
 			inventory[nextFreeSpace][1]++;
 			amount--;
 		}
